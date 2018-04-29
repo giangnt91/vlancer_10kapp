@@ -1,0 +1,95 @@
+<style>
+.float-button {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    width: 30px;
+    padding: 30px;
+    font-size: 60px;
+    background: warning;
+    position: fixed;
+    bottom: 0px; /* Adjust to where you want it */
+    right: 50px; /* Adjust to where you want it */
+    z-index: 9999;
+    text-shadow: 0px 2px 4px gray; 
+    color:#039BE5;
+}
+.float-button-l {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    width: 30px;
+    padding: 30px;
+    font-size: 60px;
+    background: warning;
+    position: fixed;
+    bottom: 0px; /* Adjust to where you want it */
+    left: 0px; /* Adjust to where you want it */
+    z-index: 9999;
+    text-shadow: 0px 2px 4px gray; 
+    color:#F4511E;
+}
+
+.float-button .float-button-l .float-button-r .height_fix {
+    margin-top: 100%;
+}
+
+.float-button .float-button-l .content {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    margin-top: -30px; /* Note, this must be half the font size */
+    color: light;
+}
+.float-button-r {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    margin-top: -30px; /* Note, this must be half the font size */
+    color: light;
+}
+
+ion-content > .scroll ,
+ion-content > .scroll > .slider{
+    height: 100%;
+}
+</style>
+
+<ion-view view-title="Cập nhật tài khoản">
+   <ion-content scroll="false">
+    <form style="height: 100%; background: url(img/welcome/welcome.jpg); background-size: cover;">
+            <h4 style="color:#fff; text-align:center; padding-top:30px; padding-bottom:30px; margin:0">
+                <img src="img/tappay.png" style="width:80px; border: 1px solid #DF7431; border-radius: 15px;">
+            </h4>
+        <div class="list">
+            <label class="item item-input ion-android-person" style="border-radius:5px; color: #fff; font-size:25px; width: 90%; margin: auto; margin-bottom:10px; background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;">
+                    <input id="username" type="text" placeholder="nguyenvana"  style="padding-left:20px; color: #fff; background: transparent;" readonly>
+           </label>
+           <label class="item item-input ion-locked" style="z-index:0; border-radius:5px; color: #fff; font-size:25px; width: 90%; margin: auto; margin-bottom:10px; background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;">
+                    <input id="password" type="password" placeholder="***********" style="padding-left:20px; color: #fff; background: transparent;" ng-disabled="!enable">
+                    <!--<a href="#" class="ion-ios-compose-outline" style="color:#fff; padding-right:10px"></a>-->
+           </label>
+           <a class="button button-icon button-clear ion-ios-compose-outline" style="margin-top: -57px; float: right; font-size: 27px; color: #fff; z-index: 1; margin-right: 17px; width:30px" ng-click="editpass()"></a>
+           <label class="item item-input ion-happy-outline" style="border-radius:5px; font-size:25px;  border-top: none; width: 90%; margin: auto; margin-bottom:10px; background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0; color: #fff;">
+                    <input id="fullname" type="text" placeholder="Nguyễn Văn A"  style="padding-left:20px; color: #fff; background: transparent;" required>
+          </label>
+          <label class="item item-input ion-email" style="border-radius:5px; color: #fff; font-size:25px; width: 90%; margin: auto; margin-bottom:5px; background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;">
+                    <input id="email" type="text" placeholder="A@nguyenvan.com" style="padding-left:20px; color: #fff" required>
+           </label>
+        </div>
+        <!--<div class="padding">
+            <button class="button waves-effect waves-light button-full button-assertive" style="; color:#fff; font-size:15px; opacity:.9">Cập nhật</button>
+        </div>-->
+        <div class="button-bar padding">
+            <button class="button button-small button-outline button-positive light-bg icon-left waves-effect waves-button waves-light" style="border-color: #387ef5; border-radius: 0;">Cập nhật</button>
+        </div>
+    </form>
+    </script>
+</ion-content>
+</ion-view>

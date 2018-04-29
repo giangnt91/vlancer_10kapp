@@ -1,0 +1,45 @@
+<style>
+    .checkbox input:checked:before,
+  .checkbox input:checked + .checkbox-icon:before {
+    background: green;
+    border-color: green; }
+    
+    .checkbox input:before, .checkbox-icon:before {
+        background: transparent;
+    }
+</style>
+<ion-view hide-nav-bar="true" ion-side-menu-content drag-content="toggledrag">
+   <ion-content scroll="false">
+    <form ng-hide="!islogin" style="height: 100%; background: url(img/welcome/welcome.jpg); background-size: cover;">
+            <h4 style="color:#fff; text-align:center; padding-top:30px; padding-bottom:30px; margin:0">
+                <img src="img/tappay.png" style="width:80px; border: 1px solid #DF7431; border-radius: 15px;">
+            </h4>
+        <div class="list">
+            <label class="item item-input ion-android-person" style="border-radius:5px; color: #fff; font-size:25px; width: 90%; margin: auto; margin-bottom:7px; background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;">
+                    <input  type="text" placeholder="Tên đăng nhập"  style="padding-left:20px; color: #fff" required>
+           </label>
+          <label class="item item-input ion-android-unlock" style="border-radius:5px; font-size:25px;  border-top: none; width: 90%; margin: auto; margin-bottom:7px; background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0; color: #fff;">
+                    <input  type="password" placeholder="Mật khẩu"  style="padding-left:20px; color: #fff; background: transparent;" required>
+          </label>
+          <label class="item item-input ion-android-lock" style="border-radius:5px; color: #fff; font-size:25px; width: 90%; margin: auto; margin-bottom:7px; background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;">
+                    <input  type="password" placeholder="Nhập lại mật khẩu"  style="padding-left:20px; color: #fff" required>
+           </label>
+          <label class="item item-input ion-happy-outline" style="border-radius:5px; font-size:25px;  border-top: none; width: 90%; margin: auto; margin-bottom:7px; background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0; color: #fff;">
+                    <input  type="text" placeholder="Họ tên người dùng" style="padding-left:20px; color: #fff; background: transparent;" required>
+          </label>
+          <label class="item item-input ion-android-mail" style="border-radius:5px; color: #fff; font-size:25px; width: 90%; margin: auto; margin-bottom:7px; background: rgba(0, 0, 0, 0.6) none repeat scroll 0 0;">
+                    <input type="text" placeholder="Địa chỉ Email"  style="padding-left:20px; color: #fff" required>
+           </label>
+           <div class="item item-checkbox">
+                    <label class="checkbox" style="left:13px">
+                        <input type="checkbox" value="on">
+                    </label>
+                    <a style="color:#fff; font-size:15px; ">Tôi đã đọc và đồng ý với chính sách<br/> bảo mật thông tin</a>
+                </div>
+        </div>
+        <div class="padding" style="margin-top:-30px">
+            <button class="button waves-effect waves-light button-full button-assertive" style="; color:#fff; font-size:15px; opacity:.7; background: green;" ng-click="login()">Đăng Ký</button>
+        </div>
+    </form>
+</ion-content>
+</ion-view>
