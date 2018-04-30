@@ -1,42 +1,25 @@
 app
-    .controller('LoginCtrl', function ($scope, $state, $location, $window, $ionicNavBarDelegate, $ionicLoading) {
+    .controller('LoginCtrl', function ($scope, $state, $location, $window, $ionicNavBarDelegate, $ionicLoading, $timeout) {
 
-        $ionicLoading.show({
-            template: 'Loading...',
-        });
+        $scope.login = function () {
 
-        $window.fbAsyncInit = function () {
-
-            $scope.login = function () {
-                FB.login(function (response) {
-                });
+            var fbLoginSuccess = function (userData) {
+                // console.log(userData.authResponse.userID);
+                url = "https://graph.facebook.com/" + userData.authResponse.userID + "/picture?width=1024&height=1024";
+                alert(url);
             }
 
-
-            //loading facebook
-            var finished_rendering = function () {
-                $ionicLoading.hide();
-            }
-            FB.Event.subscribe('xfbml.render', finished_rendering);
-            //end loading
-
-            FB.Event.subscribe('auth.login', function (response) {
-                if (response) {
-                    // get long live access token
-                    FB.api('/oauth/access_token?grant_type=fb_exchange_token&client_id=1946240225621730&client_secret=15ecc2d337244c224a6497f9b91931f1&fb_exchange_token=' + response.authResponse.accessToken, function (res) {
-                        localStorage.setItem('accessToken', res.access_token);
-                    });
-
-                    FB.api('/me?fields=id,name,picture.type(large)', function (res) {
-                        if (res.name !== null) {
-                            $state.go('app.home', {}, { reload: true });
-                            // $window.location.reload(true);
-                        }
-                    })
+            facebookConnectPlugin.login(["public_profile"], fbLoginSuccess,
+                function (error) {
+                    $scope.error = true;
+                    $timeout(function () {
+                        $scope.error = false;
+                        $scope.$apply();
+                    }, 3500);
                 }
-            })
-
+            );
         }
+
     })
 
     .controller('AccountCtrl', function ($scope, $timeout) {

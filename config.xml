@@ -1,11 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.ionicframework.couponapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>My Coupon App</name>
-    <description>
-    </description>
-    <author email="giang.dev.top@gmail.com" href="http://example.com.com/">
-      Trường giang Jr
-    </author>
+<widget id="com.ionicframework.couponapp" version="0.0.1" 
+    xmlns="http://www.w3.org/ns/widgets" 
+    xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>My Coupon</name>
+    <description />
+    <author email="giang.dev.top@gmail.com" href="http://example.com.com/">    Trường giang Jr    </author>
     <content src="index.html" />
     <access origin="*" />
     <access launch-external="yes" origin="http://*" />
@@ -17,8 +16,14 @@
     <preference name="FadeSplashScreenDuration" value="1000" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
+    <icon src="res/icon.png" />
     <feature name="StatusBar">
         <param name="ios-package" onload="true" value="CDVStatusBar" />
     </feature>
+    <plugin name="cordova-plugin-facebook4" spec="^2.0.1">
+        <variable name="APP_ID" value="1946240225621730" />
+        <variable name="APP_NAME" value="Topica" />
+        <variable name="ANDROID_SDK_VERSION" value="4.+" />
+    </plugin>
     <engine name="android" spec="^7.0.0" />
 </widget>
