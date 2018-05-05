@@ -6,9 +6,6 @@
             <ion-nav-buttons side="left">
                 <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
             </ion-nav-buttons>
-            <!--<ion-nav-buttons side="right">
-                <button class="button button-icon button-clear ion-android-more-vertical" id="menu-popover" ng-click="popover.show($event)"></button>
-            </ion-nav-buttons>-->
         </ion-nav-bar>
         <ion-nav-view name="menuContent"></ion-nav-view>
     </ion-side-menu-content>
@@ -22,12 +19,12 @@
         <ion-content class="stable-bg has-expanded-header bg">
             <div class="list">
 
-                <a menu-close class="item item-icon-left" href="#/app/home">
+                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/home">
                     <i class="icon ion-ios-home"></i>
                     My Coupon
                 </a>
 
-                <a menu-close class="item item-icon-left" href="#/app/account">
+                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/account">
                     <i class="icon ion-ios-person"></i>
                     Thông tin tài khoản
                 </a>
@@ -37,7 +34,7 @@
                     Chia sẻ ( +100đ )
                 </a> -->
 
-                <a class="item item-icon-left" ng-click="go_login()">
+                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/login">
                     <i class="icon ion-android-exit"></i>
                     Đăng xuất
                 </a>

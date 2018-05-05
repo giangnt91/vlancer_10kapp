@@ -1,12 +1,13 @@
 app
-    .controller('LoginCtrl', function ($scope, $state, $location, $window, $ionicNavBarDelegate, $ionicLoading, $timeout) {
-
+    .controller('LoginCtrl', function ($scope, $state, $location, $window, $ionicBackdrop, $ionicLoading, $timeout) {
         $scope.login = function () {
+            // $ionicBackdrop.retain();
 
             var fbLoginSuccess = function (userData) {
                 // console.log(userData.authResponse.userID);
                 url = "https://graph.facebook.com/" + userData.authResponse.userID + "/picture?width=1024&height=1024";
-                alert(url);
+                // $ionicBackdrop.release();
+                $state.go("app.home");
             }
 
             facebookConnectPlugin.login(["public_profile"], fbLoginSuccess,
@@ -18,6 +19,8 @@ app
                     }, 3500);
                 }
             );
+
+
         }
 
     })
