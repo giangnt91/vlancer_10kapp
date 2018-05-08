@@ -3,7 +3,7 @@
 /* Utilities */
 
 * {
-    font-family: 'San Francisco' !important;
+    /* font-family: 'Segoe UI Light' !important; */
 }
 
 .hero.slide-up * {
@@ -272,7 +272,7 @@ p {
     text-align: center;
 }
 
-.lgbuton{
+.lgbuton {
     background: #fff !important;
     box-shadow: none !important;
     color: #EC407A !important;
@@ -290,6 +290,52 @@ p {
     border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
-.tab-item{
+.tab-item {
     font-size: 17px !important;
+}
+
+.list_coupon_avatar {
+    position: absolute;
+    top: 7px !important;
+    left: 0px !important;
+    max-width: 70px !important;
+    max-height: 70px !important;
+    width: 100%;
+    height: 100%;
+    border-radius: 0% !important;
+}
+
+.coupona {
+    /* background: #F0F0F0; */
+    /* padding: 5px; */
+    /* padding-left: 15px;
+    padding-right: 15px; */
+    /* border-radius: 5px; */
+    /* font-family: fantasy; */
+    font-size: 21px;
+    font-weight: 600;
+    color: #EC407A;
+    display: table-cell;
+}
+
+.name_shop{
+    margin-top: 9px !important;
+}
+
+.item {
+    border: none !important;
+    background-color: transparent !important;
+}
+
+/* .list a{
+    border-bottom: 1px solid rgba(236, 64, 122, 0.2) !important;
+} */
+
+.item img {
+    border-radius: 10% !important;
+}
+
+.card {
+    box-shadow: none !important;
+    border: none !important;
 }

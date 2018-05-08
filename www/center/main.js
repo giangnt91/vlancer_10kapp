@@ -5,7 +5,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
 
         .state('app', {
             url: '/app',
-            abstract: true,
+            // abstract: true,
             templateUrl: 'templates/menu.html',
             controller: 'AppCtrl'
         })
@@ -26,6 +26,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 'menuContent': {
                     templateUrl: 'partial/account.html',
                     controller: 'AccountCtrl'
+                }
+            }
+        })
+
+        .state('app.coupon', {
+            url: '/coupon/:id',
+            views: {
+                'menuContent': {
+                    templateUrl: 'partial/coupon.html',
+                    controller: 'CouponCtrl'
                 }
             }
         })
