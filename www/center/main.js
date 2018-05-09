@@ -40,6 +40,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('app.feedback', {
+            url: '/feedback/:id',
+            views: {
+                'menuContent': {
+                    templateUrl: 'partial/feedback.html',
+                    controller: 'FeedbackCtrl'
+                }
+            }
+        })
+
         .state('app.login', {
             url: '/login',
             views: {

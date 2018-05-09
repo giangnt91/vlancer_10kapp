@@ -33,9 +33,4 @@ app
     .controller('AccountCtrl', function ($scope, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicSideMenuDelegate) {
         $ionicSideMenuDelegate.canDragContent(true);
         ionicMaterialInk.displayEffect();
-        $scope.doRefresh = function () {
-            $timeout(function () {
-                $scope.$broadcast('scroll.refreshComplete');
-            }, 3000)
-        };
     })

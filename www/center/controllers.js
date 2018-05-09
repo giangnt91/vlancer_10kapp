@@ -12,13 +12,14 @@ app
     .controller('HomeCtrl', function ($scope, $timeout, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk) {
         $ionicSideMenuDelegate.canDragContent(true);
         ionicMaterialInk.displayEffect();
+        ionicMaterialMotion.blinds();
         $scope.go_coupon = function () {
             $state.go('app.coupon')
         }
-        // ionicMaterialMotion.pushDown({
-        //     selector: '.push-down'
-        // });
-        // ionicMaterialMotion.fadeSlideInRight({
-        //     selector: '.item'
-        // });
+        
+        $scope.doRefresh = function () {
+            $timeout(function () {
+                $scope.$broadcast('scroll.refreshComplete');
+            }, 3000)
+        };
     })

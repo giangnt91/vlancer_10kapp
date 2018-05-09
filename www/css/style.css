@@ -306,19 +306,13 @@ p {
 }
 
 .coupona {
-    /* background: #F0F0F0; */
-    /* padding: 5px; */
-    /* padding-left: 15px;
-    padding-right: 15px; */
-    /* border-radius: 5px; */
-    /* font-family: fantasy; */
     font-size: 21px;
     font-weight: 600;
     color: #EC407A;
     display: table-cell;
 }
 
-.name_shop{
+.name_shop {
     margin-top: 9px !important;
 }
 
@@ -327,15 +321,90 @@ p {
     background-color: transparent !important;
 }
 
-/* .list a{
-    border-bottom: 1px solid rgba(236, 64, 122, 0.2) !important;
-} */
-
 .item img {
     border-radius: 10% !important;
+}
+
+.coupon-price {
+    font-size: 33px;
+    font-weight: 600;
+    color: #EC407A;
+}
+
+.coupon-waiting{
+    stroke: #EC407A;
+    fill: #EC407A;
+}
+
+.coupon-text-feedback{
+    background: rgba(221, 221, 221, 0.4);
+    width: 95% !important;
+    margin: 0 auto;
+    border-radius: 5px;
+    padding: 15px !important;
+}
+
+.coupon-img {
+    -webkit-filter: blur(10px);
+    -moz-filter: blur(10px);
+    -o-filter: blur(10px);
+    -ms-filter: blur(10px);
+    filter: blur(10px);
+}
+
+.coupon-img-avatar{
+    border-radius: 50% !important;
+    position: relative;
+    margin: 0 auto;
+    width: 120px;
+    height: 120px;
+    margin-top: -20%;
 }
 
 .card {
     box-shadow: none !important;
     border: none !important;
 }
+
+/* animation like facebook */
+
+@keyframes placeHolderShimmer {
+    0% {
+        background-position: -468px 0
+    }
+    100% {
+        background-position: 468px 0
+    }
+}
+
+.img-animated-background {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-size: 800px 104px;
+    height: 80px;
+    width: 80px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.h2-animated-background {
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: infinite;
+    animation-name: placeHolderShimmer;
+    animation-timing-function: linear;
+    background: #f6f7f8;
+    background: linear-gradient(to right, #eeeeee 8%, #dddddd 18%, #eeeeee 33%);
+    background-size: 800px 104px;
+    height: 20px;
+    border-radius: 5px;
+    position: relative;
+    margin-top: 5px;
+}
+
+/* end like facebook */

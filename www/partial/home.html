@@ -1,6 +1,38 @@
 ﻿<ion-view view-title="<center>My Coupon</center>">
     <ion-content>
-        <div class="list">
+        <ion-refresher pulling-text="Pull to refresh..." on-refresh="doRefresh()">
+        </ion-refresher>
+        <div class="row">
+            <div class="col">
+                <div class="img-animated-background">
+                </div>
+            </div>
+            <div class="col col-75">
+                <div class="h2-animated-background">
+                </div>
+                <div class="h2-animated-background">
+                </div>
+                <div class="h2-animated-background">
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="img-animated-background">
+                </div>
+            </div>
+            <div class="col col-75">
+                <div class="h2-animated-background">
+                </div>
+                <div class="h2-animated-background">
+                </div>
+                <div class="h2-animated-background">
+                </div>
+            </div>
+        </div>
+
+        <div class="list animate-blinds">
             <a class="item item-thumbnail-left item-icon-right" href="#/app/coupon/123" style="border-bottom: 1px solid rgba(236, 64, 122, 0.2) !important; min-height: 100px">
                 <img src="./img/arya.jpg">
                 <h2 class="name_shop">Tên Cửa Hàng</h2>
