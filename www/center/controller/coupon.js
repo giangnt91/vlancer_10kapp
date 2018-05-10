@@ -27,4 +27,13 @@ app
 
         }
 
+        $scope.rate = function (id) {
+            $scope.rating = id;
+        }
+
+        $scope.feedback = function () {
+            var _message = $("#message").val();
+            alert(_message)
+        }
+
     })

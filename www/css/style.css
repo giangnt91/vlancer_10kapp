@@ -34,7 +34,7 @@ h4:first-child {
 
 p {
     color: #555;
-    margin: 0 0 25px;
+    margin: 0 0 10px;
 }
 
 .no-border {
@@ -337,7 +337,8 @@ p {
 }
 
 .coupon-text-feedback{
-    background: rgba(221, 221, 221, 0.4);
+    font-size: 18px;
+    background: rgba(221, 221, 221, 0.3);
     width: 95% !important;
     margin: 0 auto;
     border-radius: 5px;
@@ -359,6 +360,21 @@ p {
     width: 120px;
     height: 120px;
     margin-top: -20%;
+}
+
+.coupon-feedback-img-avatar{
+    border-radius: 5px;
+    position: relative;
+    margin: 0 auto;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    width: 120px;
+    height: 120px;
+}
+
+.coupon-p{
+    font-size: 18px;
+    padding: 0px 12px;
 }
 
 .card {
@@ -408,3 +424,75 @@ p {
 }
 
 /* end like facebook */
+
+.rating {
+    display: inline-block;
+    position: relative;
+    height: 50px;
+    line-height: 40px;
+    margin: 0 auto;
+    margin-top: -20px;
+    margin-bottom: 35px;
+  }
+  
+  .rating label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    cursor: pointer;
+    font-size: 60px;
+  }
+  
+  .rating label:last-child {
+    position: static;
+  }
+  
+  .rating label:nth-child(1) {
+    z-index: 5;
+  }
+  
+  .rating label:nth-child(2) {
+    z-index: 4;
+  }
+  
+  .rating label:nth-child(3) {
+    z-index: 3;
+  }
+  
+  .rating label:nth-child(4) {
+    z-index: 2;
+  }
+  
+  .rating label:nth-child(5) {
+    z-index: 1;
+  }
+  
+  .rating label input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    font-size: 60px;
+  }
+  
+  .rating label .icon {
+    float: left;
+    color: transparent;
+    font-size: 60px;
+  }
+  
+  .rating label:last-child .icon {
+    color: #555;
+    font-size: 60px;
+  }
+  
+  .rating:not(:hover) label input:checked ~ .icon,
+  .rating:hover label:hover input ~ .icon {
+    color: #EC407A;
+  }
+  
+  .rating label input:focus:not(:checked) ~ .icon:last-child {
+    color: #000;
+    text-shadow: 0 0 5px #EC407A;
+  }

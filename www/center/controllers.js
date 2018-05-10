@@ -1,4 +1,4 @@
-angular.module('10kControllers', ['ionic', 'ionic-material', 'ngResource', 'ngSanitize', 'ionic.utils', 'ngCordova'])
+angular.module('10kControllers', ['ionic', 'ionic-material', 'ratings', 'ngResource', 'ngSanitize', 'ionic.utils', 'ngCordova'])
 app
     .controller('AppCtrl', function ($scope, $window, $ionicModal, $state, $timeout, $ionicActionSheet) {
         $scope.go_login = function () {
