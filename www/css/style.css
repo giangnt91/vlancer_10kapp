@@ -331,12 +331,29 @@ p {
     color: #EC407A;
 }
 
-.coupon-waiting{
+.coupon-waiting {
     stroke: #EC407A;
     fill: #EC407A;
 }
 
-.coupon-text-feedback{
+.loading span {
+    font-size: 17px;
+}
+
+.coupon-done {
+    font-size: 30px;
+    color: green;
+    margin-top: 10px;
+}
+
+.coupon-error {
+    color: red;
+    font-size: 18px;
+    padding: 0px 12px;
+}
+
+.coupon-text-feedback {
+    line-height: 1.4;
     font-size: 18px;
     background: rgba(221, 221, 221, 0.3);
     width: 95% !important;
@@ -353,7 +370,7 @@ p {
     filter: blur(10px);
 }
 
-.coupon-img-avatar{
+.coupon-img-avatar {
     border-radius: 50% !important;
     position: relative;
     margin: 0 auto;
@@ -362,7 +379,7 @@ p {
     margin-top: -20%;
 }
 
-.coupon-feedback-img-avatar{
+.coupon-feedback-img-avatar {
     border-radius: 5px;
     position: relative;
     margin: 0 auto;
@@ -372,7 +389,7 @@ p {
     height: 120px;
 }
 
-.coupon-p{
+.coupon-p {
     font-size: 18px;
     padding: 0px 12px;
 }
@@ -433,66 +450,65 @@ p {
     margin: 0 auto;
     margin-top: -20px;
     margin-bottom: 35px;
-  }
-  
-  .rating label {
+}
+
+.rating label {
     position: absolute;
     top: 0;
     left: 0;
     height: 100%;
     cursor: pointer;
     font-size: 60px;
-  }
-  
-  .rating label:last-child {
+}
+
+.rating label:last-child {
     position: static;
-  }
-  
-  .rating label:nth-child(1) {
+}
+
+.rating label:nth-child(1) {
     z-index: 5;
-  }
-  
-  .rating label:nth-child(2) {
+}
+
+.rating label:nth-child(2) {
     z-index: 4;
-  }
-  
-  .rating label:nth-child(3) {
+}
+
+.rating label:nth-child(3) {
     z-index: 3;
-  }
-  
-  .rating label:nth-child(4) {
+}
+
+.rating label:nth-child(4) {
     z-index: 2;
-  }
-  
-  .rating label:nth-child(5) {
+}
+
+.rating label:nth-child(5) {
     z-index: 1;
-  }
-  
-  .rating label input {
+}
+
+.rating label input {
     position: absolute;
     top: 0;
     left: 0;
     opacity: 0;
     font-size: 60px;
-  }
-  
-  .rating label .icon {
+}
+
+.rating label .icon {
     float: left;
     color: transparent;
     font-size: 60px;
-  }
-  
-  .rating label:last-child .icon {
+}
+
+.rating label:last-child .icon {
     color: #555;
     font-size: 60px;
-  }
-  
-  .rating:not(:hover) label input:checked ~ .icon,
-  .rating:hover label:hover input ~ .icon {
+}
+
+.rating:not(:hover) label input:checked~.icon, .rating:hover label:hover input~.icon {
     color: #EC407A;
-  }
-  
-  .rating label input:focus:not(:checked) ~ .icon:last-child {
+}
+
+.rating label input:focus:not(:checked)~.icon:last-child {
     color: #000;
     text-shadow: 0 0 5px #EC407A;
-  }
+}

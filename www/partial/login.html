@@ -7,17 +7,19 @@
                     <h4>My Coupon App</h4>
                 </div>
             </div>
-            <div class="alert padding light" ng-show="error">
+            <div class="alert padding light" ng-show="_block_login">
                 <h3>
-                    <strong>Cảnh báo!</strong> Có lỗi trong quá trình xử lý vui lòng thử lại!</h3>
+                    <strong>Cảnh báo!</strong> Tài khoản của bạn đang bị khóa!</h3>
             </div>
+            <div class="alert padding light" ng-show="_error_login">
+                    <h3>
+                        <strong>Cảnh báo!</strong> Truy cập Website để đăng ký tài khoản trước khi đăng nhập trên app!</h3>
+                </div>
             <div class="row responsive-lg all-center padding">
                 <div class="col all-center padding">
                     <button class="button button-block button-raised button-positive lgbuton icon-left ion-social-facebook" ng-click="login()">
                         Login With Facebook
                     </button>
-                    <!-- <div class="fb-login-button" data-max-rows="1" data-size="large" data-button-type="login_with" data-show-faces="false" data-auto-logout-link="true"
-                        data-use-continue-as="true"></div> -->
                 </div>
             </div>
 

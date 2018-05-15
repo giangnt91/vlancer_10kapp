@@ -1,4 +1,4 @@
-var app = angular.module('10kCoupon', ['ionic', 'ionic-material', 'ngCordova']);
+var app = angular.module('10kCoupon', ['ionic', 'ionic-material', 'ngCordova', 'MobileService']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider

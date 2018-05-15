@@ -1,0 +1,25 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-assertive">
+        <h1 class="title">Từ Chối Coupon</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="row">
+            <img class="coupon-feedback-img-avatar" src="./img/arya.jpg">
+        </div>
+        <div class="row">
+            <div class="col">
+                <p class="coupon-error">Coupon của bạn không được chấp nhận !</p>
+            </div>
+        </div>
+
+        <div class="list" style="margin-bottom: 50px">
+            <p>
+                <textarea id="message" class="input coupon-text-feedback" rows="7" cols="65" ng-model="error_mesa" readonly></textarea>
+            </p>
+        </div>
+
+    </ion-content>
+    <div class="bar bar-footer" style="background: #EC407A; color: white" ng-click="close_error()">
+        <div class="title">Ok</div>
+    </div>
+</ion-modal-view>

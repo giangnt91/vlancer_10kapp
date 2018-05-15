@@ -8,12 +8,27 @@ app
             disableBack: false
         });
 
+        //feedback
         $ionicModal.fromTemplateUrl('./partial/feedback.html', {
             scope: $scope,
             animation: 'slide-in-up'
         }).then(function (modal) {
             $scope.modal = modal;
         });
+
+        //error
+        $ionicModal.fromTemplateUrl('./partial/error.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.error_modal = modal;
+        });
+
+        $scope.error_mesa = "bạn xài coupon giả nên không được chấp nhận nhé !";
+
+        $scope.close_error = function(){
+            $scope.error_modal.hide();
+        }
 
         $scope.use = function () {
             $ionicLoading.show({
@@ -22,10 +37,21 @@ app
             })
 
             $timeout(function () {
-                $scope.modal.show();
+                //shop apcept coupon
+                // $ionicLoading.show({
+                //     template: 'Coupon của bạn đã được chấp nhận <br/> <i class="ion ion-ios-checkmark coupon-done"></i>',
+                //     duration: 50000
+                // })
+                //if require feedback
+                // $scope.modal.show();
+
+                //shop cancel coupon
+                $scope.error_modal.show();
+                
             }, 500)
 
         }
+
 
         $scope.rate = function (id) {
             $scope.rating = id;
