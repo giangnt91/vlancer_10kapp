@@ -8,6 +8,18 @@ app
             disableBack: false
         });
 
+        $scope.auth = JSON.parse(localStorage.getItem('auth'));
+
+        if ($stateParams.id) {
+            if ($scope.auth[0].total_list_coupon.length > 0) {
+                $scope.auth[0].total_list_coupon.forEach(element => {
+                    if (element._id === $stateParams.id) {
+                        $scope.coupon_detail = element;
+                    }
+                });
+            }
+        }
+
         //feedback
         $ionicModal.fromTemplateUrl('./partial/feedback.html', {
             scope: $scope,
@@ -26,7 +38,7 @@ app
 
         $scope.error_mesa = "bạn xài coupon giả nên không được chấp nhận nhé !";
 
-        $scope.close_error = function(){
+        $scope.close_error = function () {
             $scope.error_modal.hide();
         }
 
@@ -47,7 +59,7 @@ app
 
                 //shop cancel coupon
                 $scope.error_modal.show();
-                
+
             }, 500)
 
         }

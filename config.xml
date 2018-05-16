@@ -4,7 +4,6 @@
     <author email="giang.dev.top@gmail.com" href="">Trường giang</author>
     <content src="index.html" />
     <access origin="*" />
-    <access origin="https://10.0.2.2*" subdomains="true" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />

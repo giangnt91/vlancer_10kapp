@@ -4,16 +4,17 @@ app
         $ionicSideMenuDelegate.canDragContent(false);
         $scope.login = function () {
             var fbLoginSuccess = function (userData) {
-                url_img = "https://graph.facebook.com/" + userData.authResponse.userID + "/picture?width=1024&height=1024";
+                url_img = "https://graph.facebook.com/" + userData.authResponse.userID + "/picture?width=180&height=180";
                 DataCenter.signIn(userData.authResponse.userID, url_img).then(function (response) {
-                    alert(JSON.stringify(response))
                     if (response.data.error_code === 0) {
                         localStorage.setItem('auth', JSON.stringify(response.data.auth));
                         //hide back button when after login
                         $ionicHistory.nextViewOptions({
                             disableBack: true
                         });
-                        $state.go("app.home");
+                        $state.go("app.home", {}, {
+                            reload: true
+                        });
                         //
                     } else if (response.data.error_code === 5) {
                         $scope._block_login = true;
