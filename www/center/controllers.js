@@ -2,8 +2,8 @@ angular.module('10kControllers', ['ionic', 'ionic-material', 'ratings', 'ngResou
 app
     .controller('AppCtrl', function ($scope, $window, $ionicModal, $state, $timeout, $ionicActionSheet) {
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
+
         $scope.go_login = function () {
-            localStorage.clear();
             $state.go('app.login', {}, {
                 reload: true
             });

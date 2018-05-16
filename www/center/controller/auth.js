@@ -2,6 +2,7 @@ app
     .controller('LoginCtrl', function ($scope, $rootScope, $state, $location, $ionicHistory, $ionicSideMenuDelegate, $window, $ionicBackdrop, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, DataCenter) {
         ionicMaterialInk.displayEffect();
         $ionicSideMenuDelegate.canDragContent(false);
+        localStorage.clear();
         $scope.login = function () {
             var fbLoginSuccess = function (userData) {
                 url_img = "https://graph.facebook.com/" + userData.authResponse.userID + "/picture?width=180&height=180";
@@ -19,7 +20,7 @@ app
                         })
 
                         $timeout(function () {
-                            $state.go("app.home");
+                            $state.go("app.home", {}, { reload: true });
                         }, 1500)
                     } else if (response.data.error_code === 5) {
                         $scope._block_login = true;
