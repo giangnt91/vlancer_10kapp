@@ -2,9 +2,6 @@
 
 /* Utilities */
 
-* {
-    /* font-family: 'Segoe UI Light' !important; */
-}
 
 .hero.slide-up * {
     opacity: 1;
@@ -45,9 +42,6 @@ p {
     position: static;
 }
 
-.bold {
-    /*font-weight: bold;*/
-}
 
 .border-top {
     border-top: solid 1px #ccc;
@@ -68,9 +62,6 @@ p {
     transition: all .5s ease-in-out;
 }
 
-.menu.menu-left * {
-    /*font-weight: bold;*/
-}
 
 .menu.menu-left a {
     text-decoration: none;
