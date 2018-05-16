@@ -1,19 +1,19 @@
 <ion-view view-title="My Account">
     <ion-content>
         <div class="hero slide-up" style="background-image: url('img/material-graphite.jpg'); height:220px">
-            <div class="content" style="top:30px">
-                <div class="avatar motion fade" style="background-image: url('img/ava4.jpg');  border-radius:10px; width:70px; height:70px; line-height:1;"></div>
+            <div class="content" style="top:20px">
+                <div class="avatar motion fade" style="background-image: url('{{auth[0].user_img}}');  border-radius:10px; width:90px; height:90px; line-height:1;"></div>
                 <h4>
-                    <a class="light" style="font-weight:200">Nguyễn văn A</a>
+                    <a class="light" style="font-weight:400">{{auth[0].info[0].fulname}}</a>
                 </h4>
                 <!-- <h4 style="font-weight:100">Số dư :
                     <a style="color: #02D652">15,000,000 </a>VNĐ</h4> -->
                 <div class="tabs">
-                    <a class="tab-item">
-                     120 Điểm
+                    <a class="tab-item" style="border-right: 1px solid rgba(236, 64, 122, 0.4);">
+                        {{auth[0].point_plus}} Điểm
                     </a>
                     <a class="tab-item">
-                       Bạch Kim
+                        {{auth[0].user_class[0].name}}
                     </a>
                 </div>
             </div>
@@ -23,25 +23,25 @@
             <a class="item item-icon-left">
                 <i class="icon ion-ios-pie-outline"></i>
                 Tổng Slot
-                <span class="badge badge-assertive" style="background-color: #EC407A">0</span>
+                <span class="badge badge-assertive" style="background-color:  rgba(236, 64, 122, 0.7)">{{auth[0].total_slot}}</span>
             </a>
 
             <a class="item item-icon-left item-icon-right">
                 <i class="icon ion-ios-circle-outline"></i>
                 Slot trống
-                <span class="badge badge-assertive" style="background-color: #EC407A">0</span>
+                <span class="badge badge-assertive" style="background-color:  rgba(236, 64, 122, 0.7)">{{auth[0].empty_slot}}</span>
             </a>
 
             <a class="item item-icon-left">
                 <i class="icon ion-ios-circle-filled"></i>
                 Slot chứa Coupon
-                <span class="badge badge-assertive" style="background-color: #EC407A">0</span>
+                <span class="badge badge-assertive" style="background-color:  rgba(236, 64, 122, 0.7)">{{auth[0].total_slot - auth[0].empty_slot}}</span>
             </a>
 
             <a class="item item-icon-left">
                 <i class="icon ion-ios-color-filter-outline"></i>
                 Số Coupon đã dùng
-                <span class="badge badge-assertive" style="background-color: green">0</span>
+                <span class="badge badge-assertive" style="background-color: rgba(0, 128, 0, 0.7)">{{auth[0].use_coupon.length}}</span>
             </a>
 
         </div>

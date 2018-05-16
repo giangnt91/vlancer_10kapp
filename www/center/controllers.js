@@ -15,7 +15,10 @@ app
         ionicMaterialInk.displayEffect();
         ionicMaterialMotion.blinds();
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
-        $scope.list_coupon = $scope.auth[0].total_list_coupon;
+        if ($scope.auth) {
+            $scope.list_coupon = $scope.auth[0].total_list_coupon;
+        }
+
         $scope.go_coupon = function () {
             $state.go('app.coupon')
         }

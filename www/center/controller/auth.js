@@ -1,5 +1,5 @@
 app
-    .controller('LoginCtrl', function ($scope, $rootScope, $state, $location, $ionicHistory, $ionicSideMenuDelegate, $window, $ionicBackdrop, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, DataCenter) {
+    .controller('LoginCtrl', function ($scope, $rootScope, $state, $location, $ionicHistory, $ionicSideMenuDelegate, $window, $ionicBackdrop, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, DataCenter) {
         ionicMaterialInk.displayEffect();
         $ionicSideMenuDelegate.canDragContent(false);
         $scope.login = function () {
@@ -12,10 +12,15 @@ app
                         $ionicHistory.nextViewOptions({
                             disableBack: true
                         });
-                        $state.go("app.home", {}, {
-                            reload: true
-                        });
-                        //
+
+                        $ionicLoading.show({
+                            template: 'Đang xử lý dữ liệu <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
+                            duration: 1500
+                        })
+
+                        $timeout(function () {
+                            $state.go("app.home");
+                        }, 1500)
                     } else if (response.data.error_code === 5) {
                         $scope._block_login = true;
                         $timeout(function () {
@@ -45,4 +50,6 @@ app
     .controller('AccountCtrl', function ($scope, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicSideMenuDelegate) {
         $ionicSideMenuDelegate.canDragContent(true);
         ionicMaterialInk.displayEffect();
+
+        $scope.auth = JSON.parse(localStorage.getItem('auth'));
     })
