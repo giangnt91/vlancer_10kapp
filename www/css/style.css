@@ -2,7 +2,6 @@
 
 /* Utilities */
 
-
 .hero.slide-up * {
     opacity: 1;
     filter: alpha(opacity=1);
@@ -42,7 +41,6 @@ p {
     position: static;
 }
 
-
 .border-top {
     border-top: solid 1px #ccc;
     padding-top: 30px;
@@ -61,7 +59,6 @@ p {
     background-position: 0%;
     transition: all .5s ease-in-out;
 }
-
 
 .menu.menu-left a {
     text-decoration: none;
@@ -504,9 +501,4 @@ p {
 .rating label input:focus:not(:checked)~.icon:last-child {
     color: #000;
     text-shadow: 0 0 5px #EC407A;
-}
-
-.span-point{
-    float: left;
-    margin-left: 8%;
 }
