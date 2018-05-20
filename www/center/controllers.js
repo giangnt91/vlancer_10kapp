@@ -2,26 +2,20 @@ angular.module('10kControllers', ['ionic', 'ionic-material', 'ratings', 'ngResou
 app
     .controller('AppCtrl', function ($scope, $window, $ionicModal, $ionicLoading, $state, $timeout, $ionicActionSheet) {
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
-
-        $scope.go_login = function () {
+        $scope.logout = function () {
+            $state.transitionTo('app.login', null, { reload: false });
             $ionicLoading.show({
                 template: 'Đang xử lý dữ liệu <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
-                duration: 500
+                duration: 700
             })
-
-            $timeout(function () {
-                $state.go('app.login', {}, {
-                    reload: true
-                });
-            }, 500)
-
         }
     })
 
-    .controller('HomeCtrl', function ($scope, $state, $timeout, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter, Thesocket) {
+    .controller('HomeCtrl', function ($scope, $state, $ionicLoading, $timeout, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter, Thesocket) {
         $ionicSideMenuDelegate.canDragContent(true);
         ionicMaterialInk.displayEffect();
         ionicMaterialMotion.blinds();
+
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
         if ($scope.auth) {
             $scope.list_coupon = $scope.auth[0].total_list_coupon;
@@ -30,6 +24,7 @@ app
         $scope.go_coupon = function () {
             $state.go('app.coupon')
         }
+
 
         //keo de cap nhat
         $scope.doRefresh = function () {
@@ -44,7 +39,7 @@ app
                 });
             }, 3000)
         };
-       
+
         //loading
         $scope.loading = true;
         $timeout(function () {

@@ -1,15 +1,16 @@
 app
-    .controller('LoginCtrl', function ($scope, $rootScope, $state, $location, $ionicHistory, $ionicSideMenuDelegate, $window, $ionicBackdrop, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, DataCenter) {
+    .controller('LoginCtrl', function ($scope, $window, $rootScope, $state, $location, $ionicHistory, $ionicSideMenuDelegate, $window, $ionicBackdrop, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, DataCenter) {
         ionicMaterialInk.displayEffect();
         $ionicSideMenuDelegate.canDragContent(false);
-        localStorage.clear();
+        $window.localStorage.clear();
+
         $scope.login = function () {
             var fbLoginSuccess = function (userData) {
                 url_img = "https://graph.facebook.com/" + userData.authResponse.userID + "/picture?width=180&height=180";
                 DataCenter.signIn(userData.authResponse.userID, url_img).then(function (response) {
                     if (response.data.error_code === 0) {
                         localStorage.setItem('auth', JSON.stringify(response.data.auth));
-                        
+
                         //hide back button when after login
                         $ionicHistory.nextViewOptions({
                             disableBack: true
@@ -20,9 +21,9 @@ app
                             duration: 1500
                         })
 
-                         $timeout(function () {
-                            $state.go('app.home');
-                            $scope.$apply();
+                        $timeout(function () {
+                            $state.transitionTo('app.home', null, { reload: false });
+                            // $scope.$apply();
                         }, 1500)
 
                         // $timeout(function () {
