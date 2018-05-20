@@ -5,7 +5,11 @@ app
         ionicMaterialMotion.blinds();
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
         if ($scope.auth) {
-            $scope.list_coupon = $scope.auth[0].total_list_coupon;
+            DataCenter.getShopbyId(shop_id).then(function (response) {
+                if (response.data.error_code === 0) {
+                    $scope.list_coupon = response.data.shop[0].shop_use_coupon;
+                }
+            });
         }
 
         //get coupon user use for this shop

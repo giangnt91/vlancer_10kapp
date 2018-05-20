@@ -19,15 +19,15 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             }
         })
 
-        // .state('app.shop', {
-        //     url: '/shop',
-        //     views: {
-        //         'menuContent': {
-        //             templateUrl: 'partial/forshop.html',
-        //             controller: 'ShopCtrl'
-        //         }
-        //     }
-        // })
+        .state('app.shop', {
+            url: '/shop',
+            views: {
+                'menuContent': {
+                    templateUrl: 'partial/forshop.html',
+                    controller: 'ShopCtrl'
+                }
+            }
+        })
 
         .state('app.account', {
             url: '/account',

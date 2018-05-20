@@ -22,8 +22,11 @@ app
                         })
 
                         $timeout(function () {
-                            $state.transitionTo('app.home', null, { reload: false });
-                            // $scope.$apply();
+                            if (response.data.auth[0].role[0].id === 3 || response.data.auth[0].role[0].id === 2) {
+                                $state.transitionTo('app.shop', null, { reload: false });
+                            } else {
+                                $state.transitionTo('app.home', null, { reload: false });
+                            }
                         }, 1500)
 
                         // $timeout(function () {

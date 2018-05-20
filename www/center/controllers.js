@@ -3,6 +3,7 @@ app
     .controller('AppCtrl', function ($scope, $window, $ionicModal, $ionicLoading, $state, $timeout, $ionicActionSheet) {
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
         $scope.logout = function () {
+            facebookConnectPlugin.logout();
             $state.transitionTo('app.login', null, { reload: false });
             $ionicLoading.show({
                 template: 'Đang xử lý dữ liệu <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
