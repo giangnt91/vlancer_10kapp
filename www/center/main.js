@@ -1,11 +1,10 @@
-var app = angular.module('10kCoupon', ['ionic', 'ionic-material', 'ngCordova', 'MobileService']);
+var app = angular.module('10kCoupon', ['ionic', 'ionic-material', 'ngCordova', 'MobileService', 'btford.socket-io']);
 
 app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
 
         .state('app', {
             url: '/app',
-            // abstract: true,
             templateUrl: 'templates/menu.html',
             controller: 'AppCtrl'
         })
@@ -19,6 +18,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 }
             }
         })
+
+        // .state('app.shop', {
+        //     url: '/shop',
+        //     views: {
+        //         'menuContent': {
+        //             templateUrl: 'partial/forshop.html',
+        //             controller: 'ShopCtrl'
+        //         }
+        //     }
+        // })
 
         .state('app.account', {
             url: '/account',

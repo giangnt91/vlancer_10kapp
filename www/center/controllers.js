@@ -1,16 +1,24 @@
 angular.module('10kControllers', ['ionic', 'ionic-material', 'ratings', 'ngResource', 'ngSanitize', 'ionic.utils', 'ngCordova'])
 app
-    .controller('AppCtrl', function ($scope, $window, $ionicModal, $state, $timeout, $ionicActionSheet) {
+    .controller('AppCtrl', function ($scope, $window, $ionicModal, $ionicLoading, $state, $timeout, $ionicActionSheet) {
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
 
         $scope.go_login = function () {
-            $state.go('app.login', {}, {
-                reload: true
-            });
+            $ionicLoading.show({
+                template: 'Đang xử lý dữ liệu <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
+                duration: 500
+            })
+
+            $timeout(function () {
+                $state.go('app.login', {}, {
+                    reload: true
+                });
+            }, 500)
+
         }
     })
 
-    .controller('HomeCtrl', function ($scope, $state, $timeout, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter) {
+    .controller('HomeCtrl', function ($scope, $state, $timeout, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter, Thesocket) {
         $ionicSideMenuDelegate.canDragContent(true);
         ionicMaterialInk.displayEffect();
         ionicMaterialMotion.blinds();
@@ -23,6 +31,7 @@ app
             $state.go('app.coupon')
         }
 
+        //keo de cap nhat
         $scope.doRefresh = function () {
             $timeout(function () {
                 $scope.$broadcast('scroll.refreshComplete');
@@ -30,12 +39,12 @@ app
                     if (response.data.error_code === 0) {
                         localStorage.setItem('auth', JSON.stringify(response.data.auth));
                         $scope.list_coupon = response.data.auth[0].total_list_coupon;
-                        $scope.$apply();
+                        // $scope.$apply();
                     }
                 });
             }, 3000)
         };
-
+       
         //loading
         $scope.loading = true;
         $timeout(function () {

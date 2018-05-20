@@ -14,6 +14,30 @@ angular.module('MobileService', [])
                 });
                 url = api_gateway_url + '/mobile';
                 return $http.post(url, parameter, header);
+            },
+            UseruseCoupon: function (_id, coupon) {
+                parameter = JSON.stringify({
+                    _id: _id,
+                    coupon: coupon
+                });
+                url = api_gateway_url + '/musecoupon';
+                return $http.post(url, parameter, header);
+            },
+            getShopbyId: function (shopId) {
+                parameter = JSON.stringify({
+                    shopId: shopId
+                })
+                url = api_gateway_url + '/getShopId';
+                return $http.post(url, parameter, header);
             }
         }
     })
+
+    .factory('Thesocket', function (socketFactory) {
+        var api_gateway_url = 'http://35.201.216.91:2018';
+        var socketConnection = io.connect(api_gateway_url);
+        var socket = socketFactory({
+            ioSocket: socketConnection
+        });
+        return socket;
+    });

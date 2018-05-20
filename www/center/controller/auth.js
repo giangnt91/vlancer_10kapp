@@ -9,6 +9,7 @@ app
                 DataCenter.signIn(userData.authResponse.userID, url_img).then(function (response) {
                     if (response.data.error_code === 0) {
                         localStorage.setItem('auth', JSON.stringify(response.data.auth));
+                        
                         //hide back button when after login
                         $ionicHistory.nextViewOptions({
                             disableBack: true
@@ -19,9 +20,17 @@ app
                             duration: 1500
                         })
 
-                        $timeout(function () {
-                            $state.go("app.home", {}, { reload: true });
+                         $timeout(function () {
+                            $state.go('app.home');
+                            $scope.$apply();
                         }, 1500)
+
+                        // $timeout(function () {
+                        //     $state.go('app.home', {}, {
+                        //         reload: true
+                        //     });
+                        // }, 1500)
+
                     } else if (response.data.error_code === 5) {
                         $scope._block_login = true;
                         $timeout(function () {
@@ -41,7 +50,7 @@ app
                     $scope.error = true;
                     $timeout(function () {
                         $scope.error = false;
-                        $scope.$apply();
+                        // $scope.$apply();
                     }, 3500);
                 }
             );

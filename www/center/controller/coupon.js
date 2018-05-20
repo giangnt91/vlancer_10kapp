@@ -1,5 +1,5 @@
 app
-    .controller('CouponCtrl', function ($scope, ionicMaterialInk, $ionicSideMenuDelegate, $ionicHistory, $ionicLoading, $stateParams, $ionicModal, $timeout) {
+    .controller('CouponCtrl', function ($scope, ionicMaterialInk, $ionicSideMenuDelegate, $ionicHistory, $ionicLoading, $stateParams, $ionicModal, $timeout, DataCenter, Thesocket) {
         //effect for link
         ionicMaterialInk.displayEffect();
 
@@ -45,8 +45,15 @@ app
         $scope.use = function () {
             $ionicLoading.show({
                 template: 'Vui lòng chờ cửa hàng chấp nhận Coupon <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
-                duration: 500
+                duration: 120000
             })
+
+            DataCenter.UseruseCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail).then(function (response) {
+                if (response.data.error_code === 0) {
+                    Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id);
+                }
+            });
+
 
             $timeout(function () {
                 //shop apcept coupon
@@ -58,7 +65,7 @@ app
                 // $scope.modal.show();
 
                 //shop cancel coupon
-                $scope.error_modal.show();
+                // $scope.error_modal.show();
 
             }, 500)
 
