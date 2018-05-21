@@ -2,7 +2,28 @@ app
     .controller('LoginCtrl', function ($scope, $window, $rootScope, $state, $location, $ionicHistory, $ionicSideMenuDelegate, $window, $ionicBackdrop, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, DataCenter) {
         ionicMaterialInk.displayEffect();
         $ionicSideMenuDelegate.canDragContent(false);
-        $window.localStorage.clear();
+
+        $scope.auth = JSON.parse(localStorage.getItem('auth'));
+
+        $ionicLoading.show({
+            template: 'Đang xử lý dữ liệu <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
+            duration: 500
+        })
+
+        if ($scope.auth) {
+            $timeout(function () {
+                //hide back button when after login
+                $ionicHistory.nextViewOptions({
+                    disableBack: true
+                });
+
+                if ($scope.auth[0].role[0].id === 3 || $scope.data.auth[0].role[0].id === 2) {
+                    $state.transitionTo('app.shop', null, { reload: false });
+                } else {
+                    $state.transitionTo('app.home', null, { reload: false });
+                }
+            }, 500)
+        }
 
         $scope.login = function () {
             var fbLoginSuccess = function (userData) {
@@ -18,7 +39,7 @@ app
 
                         $ionicLoading.show({
                             template: 'Đang xử lý dữ liệu <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
-                            duration: 1500
+                            duration: 500
                         })
 
                         $timeout(function () {
@@ -27,13 +48,8 @@ app
                             } else {
                                 $state.transitionTo('app.home', null, { reload: false });
                             }
-                        }, 1500)
-
-                        // $timeout(function () {
-                        //     $state.go('app.home', {}, {
-                        //         reload: true
-                        //     });
-                        // }, 1500)
+                            $scope.$apply();
+                        }, 500)
 
                     } else if (response.data.error_code === 5) {
                         $scope._block_login = true;

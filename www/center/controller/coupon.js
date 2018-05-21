@@ -12,11 +12,16 @@ app
 
         if ($stateParams.id) {
             if ($scope.auth[0].total_list_coupon.length > 0) {
-                $scope.auth[0].total_list_coupon.forEach(element => {
-                    if (element._id === $stateParams.id) {
+                for (var i = 0; i < $scope.auth[0].total_list_coupon.length; i++) {
+                    if ($scope.auth[0].total_list_coupon.length[i].id === $stateParams.id) {
                         $scope.coupon_detail = element;
                     }
-                });
+                }
+                // $scope.auth[0].total_list_coupon.forEach(element => {
+                //     if (element._id === $stateParams.id) {
+                //         $scope.coupon_detail = element;
+                //     }
+                // });
             }
         }
 
@@ -45,12 +50,12 @@ app
         $scope.use = function () {
             $ionicLoading.show({
                 template: 'Vui lòng chờ cửa hàng chấp nhận Coupon <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
-                duration: 120000
+                duration: 5000
             })
 
             DataCenter.UseruseCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail).then(function (response) {
                 if (response.data.error_code === 0) {
-                    Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id);
+                    Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0].user_img, $scope.auth[0].info[0].fulname);
                 }
             });
 
@@ -66,7 +71,9 @@ app
 
                 //shop cancel coupon
                 // $scope.error_modal.show();
-
+                Thesocket.on('show_error', function (message, user_id) {
+                    alert('user id: ' + user_id + ' tin nhan: ' + message)
+                })
             }, 500)
 
         }

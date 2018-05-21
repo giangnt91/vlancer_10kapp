@@ -85,6 +85,8 @@ p {
     opacity: 1;
     -webkit-transition: all 0.2s ease-in-out;
     transition: all 0.2s ease-in-out;
+    padding-top: 8px;
+    color: #EC407A;
 }
 
 .item.item-radio:active .radio-icon {
@@ -319,6 +321,12 @@ p {
 .coupon-price {
     font-size: 33px;
     font-weight: 600;
+    color: #EC407A;
+}
+
+.coupon-name {
+    font-size: 22px;
+    font-weight: 500;
     color: #EC407A;
 }
 

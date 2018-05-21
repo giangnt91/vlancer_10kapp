@@ -1,0 +1,25 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-assertive">
+        <h1 class="title">Lý do không chấp nhận Coupon</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="row">
+            <div class="col">
+                <ion-list>
+                    <ion-radio ng-model="choose" ng-value="'true'" ng-change="reject(choose)">Khách không có mặt tại cửa hàng</ion-radio>
+                    <ion-radio ng-model="choose" ng-value="'false'" ng-change="reject(choose)">Lý do khác</ion-radio>
+                </ion-list>
+            </div>
+        </div>
+
+        <div class="list" style="margin-bottom: 50px" ng-if="show_text">
+            <p >
+                <textarea id="message" class="input coupon-text-feedback" rows="7" cols="65"></textarea>
+            </p>
+        </div>
+
+    </ion-content>
+    <div class="bar bar-footer" style="background: #EC407A; color: white" ng-click="send_error()">
+        <div class="title">Gửi Khách hàng</div>
+    </div>
+</ion-modal-view>

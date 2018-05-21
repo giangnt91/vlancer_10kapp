@@ -14,7 +14,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             views: {
                 'menuContent': {
                     templateUrl: 'partial/home.html',
-                    controller: 'HomeCtrl'
+                    controller: 'AppCtrl'
                 }
             }
         })

@@ -1,31 +1,25 @@
 angular.module('10kControllers', ['ionic', 'ionic-material', 'ratings', 'ngResource', 'ngSanitize', 'ionic.utils', 'ngCordova'])
 app
-    .controller('AppCtrl', function ($scope, $window, $ionicModal, $ionicLoading, $state, $timeout, $ionicActionSheet) {
+    .controller('AppCtrl', function ($scope, $window, $ionicModal, $ionicLoading, $state, $timeout, $ionicActionSheet, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter, Thesocket) {
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
-        $scope.logout = function () {
-            facebookConnectPlugin.logout();
-            $state.transitionTo('app.login', null, { reload: false });
-            $ionicLoading.show({
-                template: 'Đang xử lý dữ liệu <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
-                duration: 700
-            })
-        }
-    })
-
-    .controller('HomeCtrl', function ($scope, $state, $ionicLoading, $timeout, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter, Thesocket) {
+        
         $ionicSideMenuDelegate.canDragContent(true);
         ionicMaterialInk.displayEffect();
         ionicMaterialMotion.blinds();
-
-        $scope.auth = JSON.parse(localStorage.getItem('auth'));
+        
         if ($scope.auth) {
             $scope.list_coupon = $scope.auth[0].total_list_coupon;
         }
 
-        $scope.go_coupon = function () {
-            $state.go('app.coupon')
+        $scope.logout = function () {
+            $state.transitionTo('app.login', null, { reload: false });
+            facebookConnectPlugin.logout();
+            $ionicLoading.show({
+                template: 'Đang xử lý dữ liệu <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
+                duration: 700
+            })
+            localStorage.clear();
         }
-
 
         //keo de cap nhat
         $scope.doRefresh = function () {
@@ -35,15 +29,14 @@ app
                     if (response.data.error_code === 0) {
                         localStorage.setItem('auth', JSON.stringify(response.data.auth));
                         $scope.list_coupon = response.data.auth[0].total_list_coupon;
-                        // $scope.$apply();
                     }
                 });
-            }, 3000)
+            }, 1500)
         };
 
         //loading
         $scope.loading = true;
         $timeout(function () {
             $scope.loading = false;
-        }, 3000);
+        }, 1500);
     })
