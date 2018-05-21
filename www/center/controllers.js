@@ -1,12 +1,12 @@
 angular.module('10kControllers', ['ionic', 'ionic-material', 'ratings', 'ngResource', 'ngSanitize', 'ionic.utils', 'ngCordova'])
 app
-    .controller('AppCtrl', function ($scope, $window, $ionicModal, $ionicLoading, $state, $timeout, $ionicActionSheet, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter, Thesocket) {
+    .controller('AppCtrl', function ($scope, $rootScope, $window, $ionicModal, $ionicLoading, $state, $timeout, $ionicActionSheet, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter, Thesocket) {
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
-        
+
         $ionicSideMenuDelegate.canDragContent(true);
         ionicMaterialInk.displayEffect();
         ionicMaterialMotion.blinds();
-        
+
         if ($scope.auth) {
             $scope.list_coupon = $scope.auth[0].total_list_coupon;
         }
@@ -28,6 +28,7 @@ app
                 DataCenter.signIn($scope.auth[0].user_id, $scope.auth[0].user_img).then(function (response) {
                     if (response.data.error_code === 0) {
                         localStorage.setItem('auth', JSON.stringify(response.data.auth));
+                        $rootScope.auth_menu = response.data.auth;
                         $scope.list_coupon = response.data.auth[0].total_list_coupon;
                     }
                 });

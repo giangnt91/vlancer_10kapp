@@ -11,20 +11,20 @@
     </ion-side-menu-content>
     <ion-side-menu side="left">
         <ion-header-bar class="expanded all-center">
-            <img src="{{auth[0].user_img}}" class="avatar motion spin fade" style="left:37%; border-radius:10px; width:70px; height:70px; line-height:1;">
+            <img src="{{auth_menu[0].user_img}}" class="avatar motion spin fade" style="left:37%; border-radius:10px; width:70px; height:70px; line-height:1;">
             <div class="menu-bottom" style="font-weight:400">
-                {{auth[0].info[0].fulname}}
+                {{auth_menu[0].info[0].fulname}}
             </div>
         </ion-header-bar>
         <ion-content class="stable-bg has-expanded-header bg">
             <div class="list">
 
-                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/home" ng-if="auth[0].role[0].id === 0">
+                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/home" ng-if="auth_menu[0].role[0].id === 0">
                     <i class="icon ion-ios-home"></i>
                     My Coupon
                 </a>
 
-                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/shop" ng-if="auth[0].role[0].id === 2 || auth[0].role[0].id === 3">
+                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/shop" ng-if="auth_menu[0].role[0].id === 2 || auth[0].role[0].id === 3">
                     <i class="icon ion-ios-home"></i>
                     Home
                 </a>

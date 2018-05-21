@@ -12,12 +12,13 @@ app
 
         if ($scope.auth) {
             $timeout(function () {
+                $rootScope.auth_menu = $scope.auth;
                 //hide back button when after login
                 $ionicHistory.nextViewOptions({
                     disableBack: true
                 });
 
-                if ($scope.auth[0].role[0].id === 3 || $scope.data.auth[0].role[0].id === 2) {
+                if ($scope.auth[0].role[0].id === 3 || $scope.auth[0].role[0].id === 2) {
                     $state.transitionTo('app.shop', null, { reload: false });
                 } else {
                     $state.transitionTo('app.home', null, { reload: false });
@@ -31,6 +32,7 @@ app
                 DataCenter.signIn(userData.authResponse.userID, url_img).then(function (response) {
                     if (response.data.error_code === 0) {
                         localStorage.setItem('auth', JSON.stringify(response.data.auth));
+                        $rootScope.auth_menu = response.data.auth;
 
                         //hide back button when after login
                         $ionicHistory.nextViewOptions({
@@ -48,7 +50,6 @@ app
                             } else {
                                 $state.transitionTo('app.home', null, { reload: false });
                             }
-                            $scope.$apply();
                         }, 500)
 
                     } else if (response.data.error_code === 5) {

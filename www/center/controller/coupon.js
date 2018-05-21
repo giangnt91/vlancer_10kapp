@@ -13,7 +13,7 @@ app
         if ($stateParams.id) {
             if ($scope.auth[0].total_list_coupon.length > 0) {
                 for (var i = 0; i < $scope.auth[0].total_list_coupon.length; i++) {
-                    if ($scope.auth[0].total_list_coupon.length[i].id === $stateParams.id) {
+                    if ($scope.auth[0].total_list_coupon[i].id === $stateParams.id) {
                         $scope.coupon_detail = element;
                     }
                 }
