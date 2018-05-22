@@ -7,9 +7,17 @@ app
         if ($scope.auth) {
             DataCenter.getShopbyId($scope.auth[0].role[0].shop).then(function (response) {
                 if (response.data.error_code === 0) {
-                    $scope.list_coupon = response.data.shop[0].shop_use_coupon;
+                    $scope.list_coupon = [];
+                    if (response.data.shop[0].shop_use_coupon.length > 0) {
+                        for (var i = 0; i < response.data.shop[0].shop_use_coupon.length; i++) {
+                            if (response.data.shop[0].shop_use_coupon[i].approved === "pending") {
+                                $scope.list_coupon.push(response.data.shop[0].shop_use_coupon[i]);
+                            }
+                        }
+                    }
                 }
             });
+
         }
 
         //get coupon user use for this shop
@@ -49,7 +57,14 @@ app
                 $scope.$broadcast('scroll.refreshComplete');
                 DataCenter.getShopbyId($scope.auth[0].role[0].shop).then(function (response) {
                     if (response.data.error_code === 0) {
-                        $scope.list_coupon = response.data.shop[0].shop_use_coupon;
+                        $scope.list_coupon = [];
+                        if (response.data.shop[0].shop_use_coupon.length > 0) {
+                            for (var i = 0; i < response.data.shop[0].shop_use_coupon.length; i++) {
+                                if (response.data.shop[0].shop_use_coupon[i].approved === "pending") {
+                                    $scope.list_coupon.push(response.data.shop[0].shop_use_coupon[i]);
+                                }
+                            }
+                        }
                     }
                 });
             }, 1500)
@@ -99,6 +114,7 @@ app
                         template: 'Coupon đã được chấp nhận <br/> <i class="ion ion-ios-checkmark coupon-done"></i>',
                         duration: 1500
                     })
+
                 } else {
                     $scope.modal.show();
                 }
@@ -131,10 +147,17 @@ app
                 duration: 1500
             })
             DataCenter.CancelCoupon($scope.shop[0].shopId, $scope.couponId).then(function (response) {
-                if(response.data.error_code === 0){
+                if (response.data.error_code === 0) {
                     DataCenter.getShopbyId($scope.auth[0].role[0].shop).then(function (response) {
                         if (response.data.error_code === 0) {
-                            $scope.list_coupon = response.data.shop[0].shop_use_coupon;
+                            $scope.list_coupon = [];
+                            if (response.data.shop[0].shop_use_coupon.length > 0) {
+                                for (var i = 0; i < response.data.shop[0].shop_use_coupon.length; i++) {
+                                    if (response.data.shop[0].shop_use_coupon[i].approved === "pending") {
+                                        $scope.list_coupon.push(response.data.shop[0].shop_use_coupon[i]);
+                                    }
+                                }
+                            }
                         }
                     });
                 }
