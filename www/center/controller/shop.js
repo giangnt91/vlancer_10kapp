@@ -1,5 +1,5 @@
 app
-    .controller('ShopCtrl', function ($scope, $state, $ionicModal, $timeout, $ionicPopup, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter, Thesocket) {
+    .controller('ShopCtrl', function ($scope, $state, $ionicModal, $timeout, $ionicPopup, $ionicLoading, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter, Thesocket) {
         $ionicSideMenuDelegate.canDragContent(true);
         ionicMaterialInk.displayEffect();
         ionicMaterialMotion.blinds();
@@ -71,8 +71,9 @@ app
         });
 
         //accept coupon or cancel coupon
-        $scope.comfirm = function (user_id) {
+        $scope.comfirm = function (user_id, id) {
             $scope.user_id = user_id;
+            $scope.couponId = id;
             var confirmPopup = $ionicPopup.confirm({
                 title: 'Áp dụng Coupon cho khách hàng',
                 template: '<div class="row" style="margin-top: 45px;"><img class="coupon-img-avatar" src="' + $scope.user_img + '"></div> <a class= "item" style="text-align:center;">  <span class="coupon-name">' + $scope.user_name + '</span>  </a> ',
@@ -92,7 +93,12 @@ app
 
             confirmPopup.then(function (res) {
                 if (res) {
-
+                    //send success
+                    Thesocket.emit('send_error', $scope._message, $scope.user_id, 0);
+                    $ionicLoading.show({
+                        template: 'Coupon đã được chấp nhận <br/> <i class="ion ion-ios-checkmark coupon-done"></i>',
+                        duration: 1500
+                    })
                 } else {
                     $scope.modal.show();
                 }
@@ -118,6 +124,20 @@ app
             }
 
             //send error
-            Thesocket.emit('send_error', $scope._message, $scope.user_id);
+            Thesocket.emit('send_error', $scope._message, $scope.user_id, 1);
+            $scope.modal.hide();
+            $ionicLoading.show({
+                template: 'Đã gửi lý do không chấp nhận tới khách hàng! <br/> <i class="ion ion-ios-checkmark coupon-done"></i>',
+                duration: 1500
+            })
+            DataCenter.CancelCoupon($scope.shop[0].shopId, $scope.couponId).then(function (response) {
+                if(response.data.error_code === 0){
+                    DataCenter.getShopbyId($scope.auth[0].role[0].shop).then(function (response) {
+                        if (response.data.error_code === 0) {
+                            $scope.list_coupon = response.data.shop[0].shop_use_coupon;
+                        }
+                    });
+                }
+            })
         }
     })

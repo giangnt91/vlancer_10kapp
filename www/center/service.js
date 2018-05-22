@@ -29,6 +29,14 @@ angular.module('MobileService', [])
                 })
                 url = api_gateway_url + '/getShopId';
                 return $http.post(url, parameter, header);
+            },
+            CancelCoupon: function (shopid, couponId) {
+                parameter = JSON.stringify({
+                    shopid: shopid,
+                    couponId: couponId
+                })
+                url = api_gateway_url + '/removecouponcancel';
+                return $http.post(url, parameter, header);
             }
         }
     })

@@ -1,5 +1,5 @@
 app
-    .controller('CouponCtrl', function ($scope, ionicMaterialInk, $ionicSideMenuDelegate, $ionicHistory, $ionicLoading, $stateParams, $ionicModal, $timeout, DataCenter, Thesocket) {
+    .controller('CouponCtrl', function ($scope, $state, ionicMaterialInk, $ionicSideMenuDelegate, $ionicHistory, $ionicLoading, $stateParams, $ionicModal, $timeout, DataCenter, Thesocket) {
         //effect for link
         ionicMaterialInk.displayEffect();
 
@@ -13,15 +13,10 @@ app
         if ($stateParams.id) {
             if ($scope.auth[0].total_list_coupon.length > 0) {
                 for (var i = 0; i < $scope.auth[0].total_list_coupon.length; i++) {
-                    if ($scope.auth[0].total_list_coupon[i].id === $stateParams.id) {
-                        $scope.coupon_detail = element;
+                    if ($scope.auth[0].total_list_coupon[i]._id === $stateParams.id) {
+                        $scope.coupon_detail = $scope.auth[0].total_list_coupon[i];
                     }
                 }
-                // $scope.auth[0].total_list_coupon.forEach(element => {
-                //     if (element._id === $stateParams.id) {
-                //         $scope.coupon_detail = element;
-                //     }
-                // });
             }
         }
 
@@ -41,16 +36,14 @@ app
             $scope.error_modal = modal;
         });
 
-        $scope.error_mesa = "bạn xài coupon giả nên không được chấp nhận nhé !";
-
         $scope.close_error = function () {
+            $state.transitionTo('app.home', null, { reload: false });
             $scope.error_modal.hide();
         }
 
         $scope.use = function () {
             $ionicLoading.show({
                 template: 'Vui lòng chờ cửa hàng chấp nhận Coupon <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
-                duration: 5000
             })
 
             DataCenter.UseruseCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail).then(function (response) {
@@ -58,34 +51,40 @@ app
                     Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0].user_img, $scope.auth[0].info[0].fulname);
                 }
             });
-
-
-            $timeout(function () {
-                //shop apcept coupon
-                // $ionicLoading.show({
-                //     template: 'Coupon của bạn đã được chấp nhận <br/> <i class="ion ion-ios-checkmark coupon-done"></i>',
-                //     duration: 50000
-                // })
-                //if require feedback
-                // $scope.modal.show();
-
-                //shop cancel coupon
-                // $scope.error_modal.show();
-                Thesocket.on('show_error', function (message, user_id) {
-                    alert('user id: ' + user_id + ' tin nhan: ' + message)
-                })
-            }, 500)
-
         }
+
+        //show message shop and require feedback
+        Thesocket.on('show_error', function (message, user_id, id) {
+            $scope.error_mesa = message;
+            if (user_id === $scope.auth[0].user_id) {
+                if (id === 1) {
+                    $ionicLoading.hide();
+                    $scope.error_modal.show();
+                } else {
+                    $ionicLoading.show({
+                        template: 'Coupon của bạn đã được chấp nhận <br/> <i class="ion ion-ios-checkmark coupon-done"></i>',
+                        duration: 3000
+                    })
+                    $timeout(function () {
+                        if ($scope.coupon_detail.rfeedback[0].id === 1) {
+                            $scope.modal.show();
+                        } else {
+                            $state.transitionTo('app.home', null, { reload: false });
+                        }
+                    }, 3000)
+
+                }
+            }
+        })
 
 
         $scope.rate = function (id) {
             $scope.rating = id;
         }
 
+        //save feedback
         $scope.feedback = function () {
             var _message = $("#message").val();
-            alert(_message)
         }
 
     })
