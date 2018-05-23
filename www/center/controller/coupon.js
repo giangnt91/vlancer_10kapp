@@ -98,11 +98,11 @@ app
                     if (response.data.error_code === 0) {
                         DataCenter.UpdateRating($scope.coupon_detail.shop_id, $scope.coupon_detail._id, $scope.rating, _message).then(function (res) {
                             if (res.data.error_code === 0) {
+                                $ionicLoading.show({
+                                    template: 'Cám ơn bạn đã đánh giá và chấm điểm cho dịch vụ của chúng tôi ! <br/> <i class="ion ion-happy coupon-done"></i>',
+                                    duration: 3000
+                                })
                                 $timeout(function () {
-                                    $ionicLoading.show({
-                                        template: 'Cám ơn bạn đã đánh giá và chấm điểm cho dịch vụ của chúng tôi ! <br/> <i class="ion ion-happy coupon-done"></i>',
-                                        duration: 3000
-                                    })
                                     $scope.modal.hide();
                                 }, 3000)
                             }
