@@ -70,13 +70,16 @@ app
                             $scope.modal.show();
                         } else {
                             $state.transitionTo('app.home', null, { reload: false });
+                            DataCenter.UpdateCouponfeed($scope.auth[0]._id, $scope.coupon_detail._id, null, null).then(function (response) {
+                            })
+                            DataCenter.UpdateRating($scope.coupon_detail.shop_id, $scope.coupon_detail._id, null, null).then(function (res) {
+                            })
                         }
                     }, 3000)
 
                 }
             }
         })
-
 
         $scope.rate = function (id) {
             $scope.rating = id;
@@ -85,6 +88,29 @@ app
         //save feedback
         $scope.feedback = function () {
             var _message = $("#message").val();
-        }
+            if ($scope.rating === undefined || $scope.rating === null || _message === "" || _message === null || _message === undefined) {
+                $ionicLoading.show({
+                    template: 'Bạn vui lòng chấm điểm và nhập nội dung đánh giá ! <br/> <i class="ion ion-sad coupon-done"></i>',
+                    duration: 3000
+                })
+            } else {
+                DataCenter.UpdateCouponfeed($scope.auth[0]._id, $scope.coupon_detail._id, $scope.rating, _message).then(function (response) {
+                    if (response.data.error_code === 0) {
+                        DataCenter.UpdateRating($scope.coupon_detail.shop_id, $scope.coupon_detail._id, $scope.rating, _message).then(function (res) {
+                            if (res.data.error_code === 0) {
+                                $timeout(function () {
+                                    $ionicLoading.show({
+                                        template: 'Cám ơn bạn đã đánh giá và chấm điểm cho dịch vụ của chúng tôi ! <br/> <i class="ion ion-happy coupon-done"></i>',
+                                        duration: 3000
+                                    })
+                                    $scope.modal.hide();
+                                }, 3000)
+                            }
+                        })
+                    }
+                })
 
+            }
+
+        }
     })

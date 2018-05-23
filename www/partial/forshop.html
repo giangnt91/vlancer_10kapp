@@ -51,7 +51,7 @@
 
         </div>
         <div class="list" ng-show="!loading">
-            <a class="item item-thumbnail-left item-icon-right" ng-show="list_coupon.length > 0" ng-repeat="content in list_coupon" style="border-bottom: 1px solid rgba(236, 64, 122, 0.2) !important; min-height: 100px" ng-click="comfirm(content.coupon.userid_get_coupon, content._id)">
+            <a class="item item-thumbnail-left item-icon-right" ng-show="list_coupon.length > 0" ng-repeat="content in list_coupon" style="border-bottom: 1px solid rgba(236, 64, 122, 0.2) !important; min-height: 100px" ng-click="comfirm(content.coupon.userid_get_coupon, content._id, content.coupon._id)">
                 <img src="{{content.coupon.shop_avatar}}">
                 <h2 class="name_shop">{{content.coupon.shop_name}}</h2>
                 <p>Hạn sử dụng: {{content.coupon.time_expire}}</p>

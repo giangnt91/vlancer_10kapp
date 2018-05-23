@@ -37,6 +37,35 @@ angular.module('MobileService', [])
                 })
                 url = api_gateway_url + '/removecouponcancel';
                 return $http.post(url, parameter, header);
+            },
+            AcceptCoupon: function (shopid, couponId, get_coupon_id) {
+                parameter = JSON.stringify({
+                    shopid: shopid,
+                    couponId: couponId,
+                    get_couponId: get_coupon_id
+                })
+                url = api_gateway_url + '/mshopaccept';
+                return $http.post(url, parameter, header);
+            },
+            UpdateCouponfeed: function (_id, couponId, rating, feedback) {
+                parameter = JSON.stringify({
+                    _id: _id,
+                    couponId: couponId,
+                    rating: rating,
+                    feedback: feedback
+                });
+                url = api_gateway_url + '/couponfeed';
+                return $http.post(url, parameter, header);
+            },
+            UpdateRating: function(shopid, couponId, rating, feedback){
+                parameter = JSON.stringify({
+                    shopid: shopid,
+                    couponId: couponId,
+                    rating: rating,
+                    feedback: feedback
+                })
+                url = api_gateway_url + '/mupdaterating';
+                return $http.post(url, parameter, header);
             }
         }
     })

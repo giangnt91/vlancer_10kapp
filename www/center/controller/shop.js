@@ -86,9 +86,10 @@ app
         });
 
         //accept coupon or cancel coupon
-        $scope.comfirm = function (user_id, id) {
+        $scope.comfirm = function (user_id, id, coupon_id) {
             $scope.user_id = user_id;
             $scope.couponId = id;
+            $scope.the_id = coupon_id;
             var confirmPopup = $ionicPopup.confirm({
                 title: 'Áp dụng Coupon cho khách hàng',
                 template: '<div class="row" style="margin-top: 45px;"><img class="coupon-img-avatar" src="' + $scope.user_img + '"></div> <a class= "item" style="text-align:center;">  <span class="coupon-name">' + $scope.user_name + '</span>  </a> ',
@@ -115,6 +116,22 @@ app
                         duration: 1500
                     })
 
+                    DataCenter.AcceptCoupon($scope.shop[0].shopId, $scope.couponId, $scope.the_id).then(function (response) {
+                        if (response.data.error_code === 0) {
+                            DataCenter.getShopbyId($scope.auth[0].role[0].shop).then(function (response) {
+                                if (response.data.error_code === 0) {
+                                    $scope.list_coupon = [];
+                                    if (response.data.shop[0].shop_use_coupon.length > 0) {
+                                        for (var i = 0; i < response.data.shop[0].shop_use_coupon.length; i++) {
+                                            if (response.data.shop[0].shop_use_coupon[i].approved === "pending") {
+                                                $scope.list_coupon.push(response.data.shop[0].shop_use_coupon[i]);
+                                            }
+                                        }
+                                    }
+                                }
+                            });
+                        }
+                    });
                 } else {
                     $scope.modal.show();
                 }

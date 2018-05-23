@@ -11,6 +11,16 @@ app
             $scope.list_coupon = $scope.auth[0].total_list_coupon;
         }
 
+        function get_auth(){
+            DataCenter.signIn($scope.auth[0].user_id, $scope.auth[0].user_img).then(function (response) {
+                if (response.data.error_code === 0) {
+                    localStorage.setItem('auth', JSON.stringify(response.data.auth));
+                    $rootScope.auth_menu = response.data.auth;
+                    $scope.list_coupon = response.data.auth[0].total_list_coupon;
+                }
+            });
+        }
+
         $scope.logout = function () {
             $state.transitionTo('app.login', null, { reload: false });
             facebookConnectPlugin.logout();
@@ -25,19 +35,14 @@ app
         $scope.doRefresh = function () {
             $timeout(function () {
                 $scope.$broadcast('scroll.refreshComplete');
-                DataCenter.signIn($scope.auth[0].user_id, $scope.auth[0].user_img).then(function (response) {
-                    if (response.data.error_code === 0) {
-                        localStorage.setItem('auth', JSON.stringify(response.data.auth));
-                        $rootScope.auth_menu = response.data.auth;
-                        $scope.list_coupon = response.data.auth[0].total_list_coupon;
-                    }
-                });
+                get_auth();
             }, 1500)
         };
 
         //loading
         $scope.loading = true;
         $timeout(function () {
+            get_auth();
             $scope.loading = false;
         }, 1500);
     })
