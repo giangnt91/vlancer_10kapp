@@ -53,15 +53,15 @@ app
                         }, 500)
 
                     } else if (response.data.error_code === 5) {
-                        $scope._block_login = true;
-                        $timeout(function () {
-                            $scope._block_login = false;
-                        }, 5000)
+                        $ionicLoading.show({
+                            template: 'Tài khoản của bạn đang bị khóa !',
+                            duration: 3500
+                        })
                     } else if (response.data.error_code === 2) {
-                        $scope._error_login = true;
-                        $timeout(function () {
-                            $scope._error_login = false;
-                        }, 5000)
+                        $ionicLoading.show({
+                            template: 'Truy cập Website để đăng ký tài khoản trước khi đăng nhập trên app !',
+                            duration: 3500
+                        })
                     }
                 });
             }

@@ -90,7 +90,7 @@ app
             var _message = $("#message").val();
             if ($scope.rating === undefined || $scope.rating === null || _message === "" || _message === null || _message === undefined) {
                 $ionicLoading.show({
-                    template: 'Bạn vui lòng chấm điểm và nhập nội dung đánh giá ! <br/> <i class="ion ion-sad coupon-done"></i>',
+                    template: 'Bạn vui lòng chấm điểm và nhập nội dung đánh giá ! <br/> <i class="ion ion-sad coupon-false"></i>',
                     duration: 3000
                 })
             } else {

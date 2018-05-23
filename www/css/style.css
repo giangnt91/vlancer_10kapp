@@ -345,6 +345,12 @@ p {
     margin-top: 10px;
 }
 
+.coupon-false {
+    font-size: 30px;
+    color: red;
+    margin-top: 10px;
+}
+
 .coupon-error {
     color: red;
     font-size: 18px;
