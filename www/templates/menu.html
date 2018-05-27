@@ -19,12 +19,12 @@
         <ion-content class="stable-bg has-expanded-header bg">
             <div class="list">
 
-                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/home" ng-if="auth_menu[0].role[0].id === 0">
+                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/home" ng-if="!_menu_shop">
                     <i class="icon ion-ios-home"></i>
                     My Coupon
                 </a>
 
-                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/shop" ng-if="auth_menu[0].role[0].id !== 0 ">
+                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/shop" ng-if="_menu_shop">
                     <i class="icon ion-ios-home"></i>
                     Home
                 </a>

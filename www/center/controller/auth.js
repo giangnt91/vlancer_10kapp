@@ -13,6 +13,11 @@ app
         if ($scope.auth) {
             $timeout(function () {
                 $rootScope.auth_menu = $scope.auth;
+                if ($scope.auth[0].role[0].id === 2 || $scope.auth[0].role[0].id === 3) {
+                    $rootScope._menu_shop = true;
+                }else{
+                    $rootScope._menu_shop = false;
+                }
                 //hide back button when after login
                 $ionicHistory.nextViewOptions({
                     disableBack: true
@@ -33,6 +38,11 @@ app
                     if (response.data.error_code === 0) {
                         localStorage.setItem('auth', JSON.stringify(response.data.auth));
                         $rootScope.auth_menu = response.data.auth;
+                        if ($scope.auth_menu[0].role[0].id === 2 || $scope.auth_menu[0].role[0].id === 3) {
+                            $rootScope._menu_shop = true;
+                        }else{
+                            $rootScope._menu_shop = false;
+                        }
 
                         //hide back button when after login
                         $ionicHistory.nextViewOptions({
@@ -85,10 +95,13 @@ app
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
 
         if ($scope.auth[0].role[0].id === 2 || $scope.auth[0].role[0].id === 3) {
+            $scope._shop_auth = true;
             DataCenter.getShopbyId($scope.auth[0].role[0].shop).then(function (response) {
                 if (response.data.error_code === 0) {
                     $scope.shop = response.data.shop;
                 }
             });
+        } else {
+            $scope._shop_auth = false;
         }
     })
