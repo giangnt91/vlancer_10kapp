@@ -78,9 +78,17 @@ app
         }
     })
 
-    .controller('AccountCtrl', function ($scope, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicSideMenuDelegate) {
+    .controller('AccountCtrl', function ($scope, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicSideMenuDelegate, DataCenter) {
         $ionicSideMenuDelegate.canDragContent(true);
         ionicMaterialInk.displayEffect();
 
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
+
+        if ($scope.auth[0].role[0].id === 2 || $scope.auth[0].role[0].id === 3) {
+            DataCenter.getShopbyId($scope.auth[0].role[0].shop).then(function (response) {
+                if (response.data.error_code === 0) {
+                    $scope.shop = response.data.shop;
+                }
+            });
+        }
     })

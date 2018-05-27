@@ -34,7 +34,8 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             views: {
                 'menuContent': {
                     templateUrl: 'partial/account.html',
-                    controller: 'AccountCtrl'
+                    controller: 'AccountCtrl',
+                    cache:false
                 }
             }
         })

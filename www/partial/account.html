@@ -1,4 +1,4 @@
-<ion-view view-title="My Account">
+<ion-view view-title="My Account" cache-view="false">
     <ion-content>
         <div class="hero slide-up" style="background-image: url('img/material-graphite.jpg'); height:220px">
             <div class="content" style="top:20px">
@@ -8,7 +8,7 @@
                 </h4>
                 <!-- <h4 style="font-weight:100">Số dư :
                     <a style="color: #02D652">15,000,000 </a>VNĐ</h4> -->
-                <div class="tabs">
+                <div class="tabs" ng-if="auth[0].role[0].id !== 2">
                     <a class="tab-item" style="border-right: 1px solid rgba(236, 64, 122, 0.4);">
                         {{auth[0].point_plus}} Điểm
                     </a>
@@ -16,9 +16,19 @@
                        Hạng {{auth[0].user_class[0].name}}
                     </a>
                 </div>
+
+                <div class="tabs" ng-if="auth[0].role[0].id === 2">
+                    <a class="tab-item" style="border-right: 1px solid rgba(236, 64, 122, 0.4);">
+                        {{shop[0].wallet}} Điểm
+                    </a>
+                    <a class="tab-item">
+                       Hạng {{shop[0].shop_rank[0].name}}
+                    </a>
+                </div>
+
             </div>
         </div>
-        <div class="list">
+        <div class="list" ng-if="auth[0].role[0].id === 0">
 
             <a class="item item-icon-left">
                 <i class="icon ion-ios-pie-outline"></i>
@@ -42,6 +52,28 @@
                 <i class="icon ion-ios-color-filter-outline"></i>
                 Số Coupon đã dùng
                 <span class="badge badge-assertive" style="background-color: rgba(0, 128, 0, 0.7)">{{auth[0].use_coupon.length}}</span>
+            </a>
+
+        </div>
+
+        <div class="list" ng-if="auth[0].role[0].id !== 0">
+
+            <a class="item item-icon-left">
+                <i class="icon ion-ios-pie-outline"></i>
+                Tổng số Coupon đã phát hành
+                <span class="badge badge-assertive" style="background-color:  rgba(236, 64, 122, 0.7)">{{shop[0].user_get_coupon.length + shop[0].expire_coupon.length + shop[0].shop_use_coupon}}</span>
+            </a>
+
+            <a class="item item-icon-left">
+                <i class="icon ion-ios-close-outline"></i>
+                Tổng số Coupon đã hết hạn
+                <span class="badge badge-assertive" style="background-color: red">{{shop[0].expire_coupon.length}}</span>
+            </a>
+
+            <a class="item item-icon-left">
+                <i class="icon ion-ios-color-filter-outline"></i>
+                Tổng số Coupon đã được sử dụng
+                <span class="badge badge-assertive" style="background-color: rgba(0, 128, 0, 0.7)">{{shop[0].shop_use_coupon.length}}</span>
             </a>
 
         </div>
