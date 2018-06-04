@@ -71,7 +71,7 @@ angular.module('MobileService', [])
     })
 
     .factory('Thesocket', function (socketFactory) {
-        var api_gateway_url = 'http://35.201.216.91:2018';
+        var api_gateway_url = 'http://35.200.213.108:2018';
         var socketConnection = io.connect(api_gateway_url);
         var socket = socketFactory({
             ioSocket: socketConnection
