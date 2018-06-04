@@ -56,7 +56,7 @@ app
         //show message shop and require feedback
         Thesocket.on('show_error', function (message, user_id, id) {
             $scope.error_mesa = message;
-            if (user_id === $scope.auth[0].user_id) {
+            if (user_id[0].id === $scope.auth[0].user_id) {
                 if (id === 1) {
                     $ionicLoading.hide();
                     $scope.error_modal.show();
@@ -104,6 +104,7 @@ app
                                 })
                                 $timeout(function () {
                                     $scope.modal.hide();
+                                    $state.transitionTo('app.home', null, { reload: false });
                                 }, 3000)
                             }
                         })
