@@ -57,7 +57,7 @@
                 style="border-bottom: 1px solid rgba(236, 64, 122, 0.2) !important; min-height: 100px">
                 <img src="{{content.shop_avatar}}">
                 <h2 class="name_shop">{{content.shop_name}}</h2>
-                <p>Hạn sử dụng: {{content.time_expire}} <span ng-if="content.time_expire > 1">Tháng</span> <span ng-if="content.time_expire === 1">Năm</span></p>
+                <p>Hạn sử dụng: {{content.time_expire}} <span ng-if="content.time_expire !== '1'">Tháng</span> <span ng-if="content.time_expire === '1'">Năm</span></p>
                 <span class="coupona">
                     {{content.value}} VNĐ
                 </span>

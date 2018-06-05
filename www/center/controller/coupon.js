@@ -1,5 +1,5 @@
 app
-    .controller('CouponCtrl', function ($scope, $state, ionicMaterialInk, $ionicSideMenuDelegate, $ionicHistory, $ionicLoading, $stateParams, $ionicModal, $timeout, DataCenter, Thesocket) {
+    .controller('CouponCtrl', function ($scope, $filter, $state, ionicMaterialInk, $ionicSideMenuDelegate, $ionicHistory, $ionicLoading, $stateParams, $ionicModal, $timeout, DataCenter, Thesocket) {
         //effect for link
         ionicMaterialInk.displayEffect();
 
@@ -41,16 +41,33 @@ app
             $scope.error_modal.hide();
         }
 
-        $scope.use = function () {
-            $ionicLoading.show({
-                template: 'Vui lòng chờ cửa hàng chấp nhận Coupon <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
-            })
+        //conver day to int for compare
+        function process(x) {
+            var parts = x.split("/");
+            return parts[2] + parts[1] + parts[0];
+        }
 
-            DataCenter.UseruseCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail).then(function (response) {
-                if (response.data.error_code === 0) {
-                    Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0].user_img, $scope.auth[0].info[0].fulname);
-                }
-            });
+        $scope.use = function () {
+            var date = new Date();
+            var _limit = process($scope.coupon_detail.limit_time);
+            var _today = $filter('date')(new Date(), 'yyyymd');
+
+            // check expired time
+            if (_limit > _today) {
+                $ionicLoading.show({
+                    template: 'Vui lòng chờ cửa hàng chấp nhận Coupon <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
+                })
+
+                DataCenter.UseruseCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail).then(function (response) {
+                    if (response.data.error_code === 0) {
+                        Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0].user_img, $scope.auth[0].info[0].fulname);
+                    }
+                });
+            } else {
+                $ionicLoading.show({
+                    template: 'Coupon của bạn đã hết hạn hệ thống sẽ tiến hành xóa coupon khỏi tài khoản của bạn. <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>'
+                })
+            }
         }
 
         //show message shop and require feedback
