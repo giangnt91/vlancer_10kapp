@@ -82,5 +82,9 @@
         <variable name="APP_NAME" value="Topica" />
         <variable name="ANDROID_SDK_VERSION" value="4.+" />
     </plugin>
+    <plugin name="phonegap-plugin-push" spec="^2.1.3">
+        <variable name="SENDER_ID" value="642203001429" />
+        <variable name="FCM_VERSION" value="11.6.2" />
+    </plugin>
     <engine name="android" spec="^7.0.0" />
 </widget>

@@ -96,6 +96,16 @@ p {
     transition: all 0.1s ease-in-out;
 }
 
+.popup-buttons .button {
+    margin: 0 auto;
+    background-color: #EA4177 !important;
+    margin-bottom: 7px !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    border-radius: 3px !important;
+    width: 50%;
+}
+
 .directions.button-bar {
     margin: 0 auto;
     width: 33.333%;

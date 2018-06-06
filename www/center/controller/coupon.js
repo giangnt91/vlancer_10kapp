@@ -53,7 +53,7 @@ app
             var _today = $filter('date')(new Date(), 'yyyymd');
 
             // check expired time
-            if (_limit > _today) {
+            if (parseInt(_limit) > parseInt(_today)) {
                 $ionicLoading.show({
                     template: 'Vui lòng chờ cửa hàng chấp nhận Coupon <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
                 })
@@ -65,8 +65,19 @@ app
                 });
             } else {
                 $ionicLoading.show({
-                    template: 'Coupon của bạn đã hết hạn hệ thống sẽ tiến hành xóa coupon khỏi tài khoản của bạn. <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>'
+                    template: 'Coupon của bạn đã hết hạn hệ thống sẽ tiến hành xóa coupon. Vui lòng chờ .... <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>'
                 })
+                $timeout(function () {
+                    DataCenter.RemoveCoupon($scope.auth[0]._id, $scope.coupon_detail._id).then(function (response) {
+                        if (response.data.error_code === 0) {
+                            $ionicLoading.hide();
+                            $state.transitionTo('app.home', null, { reload: false });
+                        } else {
+                            $ionicLoading.hide();
+                            $state.transitionTo('app.home', null, { reload: false });
+                        }
+                    })
+                }, 3000)
             }
         }
 

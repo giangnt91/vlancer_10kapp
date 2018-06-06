@@ -1,10 +1,37 @@
 angular.module('10kControllers', ['ionic', 'ionic-material', 'ratings', 'ngResource', 'ngSanitize', 'ionic.utils', 'ngCordova'])
 app
     .filter('unsafe', function ($sce) { return $sce.trustAsHtml; })
-    .controller('AppCtrl', function ($scope, $rootScope, $window, $ionicModal, $ionicLoading, $state, $timeout, $ionicActionSheet, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter, Thesocket) {
-        
-
+    .controller('AppCtrl', function ($scope, $rootScope, $window, $ionicModal, $ionicLoading, $state, $timeout, $ionicPopup, $ionicActionSheet, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter, Thesocket) {
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            var push = PushNotification.init({
+                "android": { "senderID": "642203001429" }
+            });
+
+            push.on('registration', function (data) {
+                if (data.registrationId) {
+                    DataCenter.UpdateNotif($scope.auth[0]._id, data.registrationId).then(function (response) {
+                    })
+                }
+                // data.registrationId
+            });
+
+            push.on('notification', function (data) {
+                // alert(data.additionalData.userid + ' - ' + $scope.auth[0].user_id)
+                if (data.additionalData.userid === $scope.auth[0].user_id) {
+                    var alertPopup = $ionicPopup.alert({
+                        title: 'Thông báo',
+                        template: data.message
+                    });
+                    data.sound
+                }
+            });
+
+            push.on('error', function (e) {
+                alert(e)
+            });
+        }
 
         $ionicSideMenuDelegate.canDragContent(true);
         ionicMaterialInk.displayEffect();
