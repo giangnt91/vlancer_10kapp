@@ -92,9 +92,11 @@ app
             $scope.the_id = coupon_id;
             var confirmPopup = $ionicPopup.confirm({
                 title: 'Áp dụng Coupon cho khách hàng',
+                cssClass:'',
                 template: '<div class="row" style="margin-top: 45px;"><img class="coupon-img-avatar" src="' + $scope.user_img + '"></div> <a class= "item" style="text-align:center;">  <span class="coupon-name">' + $scope.user_name + '</span>  </a> ',
                 buttons: [{
                     text: 'Hủy',
+                    type: 'button-positive',
                     onTap: function (e) {
                         return false;
                     }

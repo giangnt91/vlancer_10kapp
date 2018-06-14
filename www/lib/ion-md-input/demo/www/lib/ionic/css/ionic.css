@@ -6029,6 +6029,7 @@ progress {
         box-shadow: none;
         color: #fff; }
   .button.button-positive {
+    width: 50%;
     border-color: #0c63ee;
     background-color: #387ef5;
     color: #fff; }

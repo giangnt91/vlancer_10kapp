@@ -1,0 +1,60 @@
+<ion-modal-view>
+        <ion-header-bar class="bar bar-assertive" align-title="center">
+            <h1 class="title">Feedback Coupon</h1>
+        </ion-header-bar>
+        <ion-content>
+            <div class="row">
+                <img class="coupon-feedback-img-avatar" src="{{coupon_detail.shop_avatar}}">
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p class="coupon-p">Hãy cho chúng tôi biết cảm nhận của bạn khi sử dụng dịch vụ và sản phẩm</p>
+                </div>
+            </div>
+    
+            <div class="row">
+                <form class="rating">
+                    <label>
+                        <input type="radio" name="stars" ng-click="rate(1)" value="1" />
+                        <span class="icon">★</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="stars" ng-click="rate(2)" value="2" />
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="stars" ng-click="rate(3)" value="3" />
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="stars" ng-click="rate(4)" value="4" />
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="stars" ng-click="rate(5)" value="5" />
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                        <span class="icon">★</span>
+                    </label>
+                </form>
+            </div>
+    
+            <div class="list" style="margin-bottom: 50px">
+                <p>
+                    <textarea id="remessage" class="input coupon-text-feedback" rows="7" cols="65" ng-model="data"></textarea>
+                </p>
+            </div>
+    
+        </ion-content>
+        <div class="bar bar-footer" style="background: #EC407A; color: white" ng-click="feedback()">
+            <div class="title">HOÀN THÀNH</div>
+        </div>
+    </ion-modal-view>

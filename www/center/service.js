@@ -67,6 +67,16 @@ angular.module('MobileService', [])
                 url = api_gateway_url + '/mupdaterating';
                 return $http.post(url, parameter, header);
             },
+            UpdateAfterUser: function(_id, couponId, rating, feedback){
+                parameter = JSON.stringify({
+                    _id: _id,
+                    couponId: couponId,
+                    rating: rating,
+                    feedback: feedback
+                });
+                url = api_gateway_url + '/afteruser';
+                return $http.post(url, parameter, header);
+            },
             RemoveCoupon: function (_id, couponId) {
                 parameter = JSON.stringify({
                     _id: _id,

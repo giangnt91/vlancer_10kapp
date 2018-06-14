@@ -1,0 +1,26 @@
+<ion-view view-title="List Feedback" cache-view="false">
+    <ion-content>
+        <ion-refresher pulling-text="Kéo thả để cập nhật" on-refresh="doRefresh()">
+        </ion-refresher>
+
+        <div class="list">
+            <a class="item item-thumbnail-left item-icon-right" nav-transition="ios" ng-show="list_fb.length > 0" ng-repeat="content in list_fb"
+                ng-click="show_feedback(content._id)" style="border-bottom: 1px solid rgba(236, 64, 122, 0.2) !important; min-height: 100px">
+                <img src="{{content.shop_avatar}}">
+                <h2 class="name_shop">{{content.shop_name}}</h2>
+                <p>Hạn sử dụng: {{content.time_expire}}
+                    <span ng-if="content.time_expire !== '1'">Tháng</span>
+                    <span ng-if="content.time_expire === '1'">Năm</span>
+                </p>
+                <span class="coupona">
+                    {{content.value}} VNĐ
+                </span>
+                <i class="icon ion-ios-arrow-right" style="color: #EC407A"></i>
+            </a>
+
+            <a class="item" ng-show="list_fb.length === 0">
+                <h2 style="text-align: center">Yeah! Hiện tại bạn không cần Feedback.</h2>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

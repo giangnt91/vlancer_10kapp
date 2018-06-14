@@ -49,8 +49,14 @@ app
 
         $scope.use = function () {
             var date = new Date();
+            _year = date.getFullYear();
+            _month = date.getMonth() + 1;
+            _day = date.getDate();
             var _limit = process($scope.coupon_detail.limit_time);
-            var _today = $filter('date')(new Date(), 'yyyymd');
+            var _today = _year + '' + _month + '' + _day;
+
+            // alert(_limit);
+            // alert(_today);
 
             // check expired time
             if (parseInt(_limit) > parseInt(_today)) {
@@ -95,12 +101,16 @@ app
                     })
                     $timeout(function () {
                         if ($scope.coupon_detail.rfeedback[0].id === 1) {
+                            DataCenter.UpdateCouponfeed($scope.auth[0]._id, $scope.coupon_detail._id, null, "").then(function (response) {
+                            })
+                            DataCenter.UpdateRating($scope.coupon_detail.shop_id, $scope.coupon_detail._id, null, "").then(function (res) {
+                            })
                             $scope.modal.show();
                         } else {
                             $state.transitionTo('app.home', null, { reload: false });
-                            DataCenter.UpdateCouponfeed($scope.auth[0]._id, $scope.coupon_detail._id, null, null).then(function (response) {
+                            DataCenter.UpdateCouponfeed($scope.auth[0]._id, $scope.coupon_detail._id, null, "").then(function (response) {
                             })
-                            DataCenter.UpdateRating($scope.coupon_detail.shop_id, $scope.coupon_detail._id, null, null).then(function (res) {
+                            DataCenter.UpdateRating($scope.coupon_detail.shop_id, $scope.coupon_detail._id, null, "").then(function (res) {
                             })
                         }
                     }, 3000)

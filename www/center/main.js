@@ -50,6 +50,16 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             }
         })
 
+        .state('app.listfeedback', {
+            url: '/listfeedback',
+            views: {
+                'menuContent': {
+                    templateUrl: 'partial/listfeedback.html',
+                    controller: 'AccountCtrl'
+                }
+            }
+        })
+
         .state('app.feedback', {
             url: '/feedback/:id',
             views: {

@@ -96,6 +96,10 @@ p {
     transition: all 0.1s ease-in-out;
 }
 
+.popup-container .popup .button{
+    margin: 5px !important;
+ }
+
 .popup-buttons .button {
     margin: 0 auto;
     background-color: #EA4177 !important;

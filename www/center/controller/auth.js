@@ -1,5 +1,5 @@
 app
-    .controller('LoginCtrl', function ($scope, $window, $rootScope, $state, $location, $ionicHistory, $ionicSideMenuDelegate, $window, $ionicBackdrop, $ionicLoading, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicLoading, DataCenter) {
+    .controller('LoginCtrl', function ($scope, $rootScope, $state, $ionicHistory, $ionicSideMenuDelegate, $ionicLoading, $timeout, ionicMaterialInk, $ionicLoading, DataCenter) {
         ionicMaterialInk.displayEffect();
         $ionicSideMenuDelegate.canDragContent(false);
 
@@ -13,9 +13,20 @@ app
         if ($scope.auth) {
             $timeout(function () {
                 $rootScope.auth_menu = $scope.auth;
+                $rootScope.list_fb = [];
+                //check exit feedback
+                if ($scope.auth[0].use_coupon.length > 0) {
+                    $scope.auth[0].use_coupon.forEach(element => {
+                        if (element.rfeedback[0].id === 1 && element.feedback === "") {
+                            $rootScope.list_fb.push(element);
+                        }
+                    });
+                    localStorage.setItem('list_fb', JSON.stringify($rootScope.list_fb));
+                }
+
                 if ($scope.auth[0].role[0].id === 2 || $scope.auth[0].role[0].id === 3) {
                     $rootScope._menu_shop = true;
-                }else{
+                } else {
                     $rootScope._menu_shop = false;
                 }
                 //hide back button when after login
@@ -37,11 +48,23 @@ app
                 DataCenter.signIn(userData.authResponse.userID, url_img).then(function (response) {
                     if (response.data.error_code === 0) {
                         localStorage.setItem('auth', JSON.stringify(response.data.auth));
+
                         $rootScope.auth_menu = response.data.auth;
                         if ($scope.auth_menu[0].role[0].id === 2 || $scope.auth_menu[0].role[0].id === 3) {
                             $rootScope._menu_shop = true;
-                        }else{
+                        } else {
                             $rootScope._menu_shop = false;
+                        }
+
+                        $rootScope.list_fb = [];
+                        //check exit feedback
+                        if ($scope.auth_menu[0].use_coupon.length > 0) {
+                            $scope.auth_menu[0].use_coupon.forEach(element => {
+                                if (element.rfeedback[0].id === 1 && element.feedback === "") {
+                                    $rootScope.list_fb.push(element);
+                                }
+                            });
+                            localStorage.setItem('list_fb', JSON.stringify($rootScope.list_fb));
                         }
 
                         //hide back button when after login
@@ -88,11 +111,87 @@ app
         }
     })
 
-    .controller('AccountCtrl', function ($scope, $timeout, ionicMaterialInk, ionicMaterialMotion, $ionicSideMenuDelegate, DataCenter) {
+    .controller('AccountCtrl', function ($scope, $timeout, ionicMaterialInk, $ionicModal, $ionicLoading, $ionicSideMenuDelegate, DataCenter) {
         $ionicSideMenuDelegate.canDragContent(true);
         ionicMaterialInk.displayEffect();
 
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
+        $scope.list_fb = JSON.parse(localStorage.getItem('list_fb'))
+
+        function get_auth() {
+            DataCenter.signIn($scope.auth[0].user_id, $scope.auth[0].user_img).then(function (response) {
+                if (response.data.error_code === 0) {
+                    $scope.list_fb = [];
+                    //check exit feedback
+                    if (response.data.auth[0].use_coupon.length > 0) {
+                        response.data.auth[0].use_coupon.forEach(element => {
+                            if (element.rfeedback[0].id === 1 && element.feedback === "") {
+                                $scope.list_fb.push(element);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        //keo de cap nhat
+        $scope.doRefresh = function () {
+            $timeout(function () {
+                $scope.$broadcast('scroll.refreshComplete');
+                get_auth();
+            }, 1500)
+        };
+
+        //feedback
+        $ionicModal.fromTemplateUrl('./partial/refeedback.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.modal = modal;
+        });
+
+        $scope.show_feedback = function(id){
+            $scope.list_fb.forEach(element => {
+                if(element._id === id){
+                    $scope.coupon_detail = element;
+                }
+            });
+            $scope.modal.show();
+        }
+
+        $scope.rate = function (id) {
+            $scope.rating = id;
+        }
+
+        //save feedback
+        $scope.feedback = function () {
+            var _message = $("#remessage").val();
+            if ($scope.rating === undefined || $scope.rating === null || _message === "" || _message === null || _message === undefined) {
+                $ionicLoading.show({
+                    template: 'Bạn vui lòng chấm điểm và nhập nội dung đánh giá ! <br/> <i class="ion ion-sad coupon-false"></i>',
+                    duration: 3000
+                })
+            } else {
+                DataCenter.UpdateAfterUser($scope.auth[0]._id, $scope.coupon_detail._id, $scope.rating, _message).then(function (response) {
+                    if (response.data.error_code === 0) {
+                        DataCenter.UpdateRating($scope.coupon_detail.shop_id, $scope.coupon_detail._id, $scope.rating, _message).then(function (res) {
+                            if (res.data.error_code === 0) {
+                                $ionicLoading.show({
+                                    template: 'Cám ơn bạn đã đánh giá và chấm điểm cho dịch vụ của chúng tôi ! <br/> <i class="ion ion-happy coupon-done"></i>',
+                                    duration: 3000
+                                })
+                                $timeout(function () {
+                                    $scope.modal.hide();
+                                    $state.transitionTo('app.home', null, { reload: false });
+                                }, 3000)
+                            }
+                        })
+                    }
+                })
+
+            }
+
+        }
 
         if ($scope.auth[0].role[0].id === 2 || $scope.auth[0].role[0].id === 3) {
             $scope._shop_auth = true;
