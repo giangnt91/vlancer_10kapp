@@ -134,6 +134,8 @@ app
             });
         }
 
+        get_auth();
+
         //keo de cap nhat
         $scope.doRefresh = function () {
             $timeout(function () {
@@ -181,8 +183,8 @@ app
                                     duration: 3000
                                 })
                                 $timeout(function () {
+                                    get_auth();
                                     $scope.modal.hide();
-                                    $state.transitionTo('app.home', null, { reload: false });
                                 }, 3000)
                             }
                         })

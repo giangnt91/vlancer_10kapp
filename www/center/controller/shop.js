@@ -7,6 +7,7 @@ app
         if ($scope.auth) {
             DataCenter.getShopbyId($scope.auth[0].role[0].shop).then(function (response) {
                 if (response.data.error_code === 0) {
+                    $scope.shop = response.data.shop;
                     $scope.list_coupon = [];
                     if (response.data.shop[0].shop_use_coupon.length > 0) {
                         for (var i = 0; i < response.data.shop[0].shop_use_coupon.length; i++) {
@@ -86,14 +87,14 @@ app
         });
 
         //accept coupon or cancel coupon
-        $scope.comfirm = function (user_id, id, coupon_id) {
+        $scope.comfirm = function (user_id, id, coupon_id, avatar, name) {
             $scope.user_id = user_id;
             $scope.couponId = id;
             $scope.the_id = coupon_id;
             var confirmPopup = $ionicPopup.confirm({
                 title: 'Áp dụng Coupon cho khách hàng',
                 cssClass:'',
-                template: '<div class="row" style="margin-top: 45px;"><img class="coupon-img-avatar" src="' + $scope.user_img + '"></div> <a class= "item" style="text-align:center;">  <span class="coupon-name">' + $scope.user_name + '</span>  </a> ',
+                template: '<div class="row" style="margin-top: 45px;"><img class="coupon-img-avatar" src="' + avatar + '"></div> <a class= "item" style="text-align:center;">  <span class="coupon-name">' + name + '</span>  </a> ',
                 buttons: [{
                     text: 'Hủy',
                     type: 'button-positive',

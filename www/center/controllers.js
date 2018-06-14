@@ -51,6 +51,7 @@ app
             });
         }
 
+
         $scope.logout = function () {
             $state.transitionTo('app.login', null, { reload: false });
             facebookConnectPlugin.logout();
