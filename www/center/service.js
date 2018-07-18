@@ -38,6 +38,14 @@ angular.module('MobileService', [])
                 url = api_gateway_url + '/removecouponcancel';
                 return $http.post(url, parameter, header);
             },
+            TimeoutCoupon: function(shopid, couponId){
+                parameter = JSON.stringify({
+                    shopid: shopid,
+                    couponId: couponId
+                });
+                url = api_gateway_url + '/timeoutcoupon';
+                return $http.post(url, parameter, header);
+            },
             AcceptCoupon: function (shopid, couponId, get_coupon_id) {
                 parameter = JSON.stringify({
                     shopid: shopid,
