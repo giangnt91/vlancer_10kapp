@@ -1,7 +1,7 @@
 angular.module('10kControllers', ['ionic', 'ionic-material', 'ratings', 'ngResource', 'ngSanitize', 'ionic.utils', 'ngCordova'])
 app
     .filter('unsafe', function ($sce) { return $sce.trustAsHtml; })
-    .controller('AppCtrl', function ($scope, $rootScope, $window, $ionicModal, $ionicLoading, $state, $timeout, $ionicPopup, $ionicActionSheet, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter, Thesocket) {
+    .controller('AppCtrl', function ($scope, $rootScope, $ionicLoading, $state, $timeout, $ionicPopup, $ionicActionSheet, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter, Thesocket) {
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
         document.addEventListener("deviceready", onDeviceReady, false);
         function onDeviceReady() {
