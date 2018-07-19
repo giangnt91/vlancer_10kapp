@@ -4,44 +4,38 @@ app
         ionicMaterialInk.displayEffect();
         ionicMaterialMotion.blinds();
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
-        if ($scope.auth) {
-            DataCenter.getShopbyId($scope.auth[0].role[0].shop).then(function (response) {
+
+        function getShopbyId(shopId) {
+            DataCenter.getShopbyId(shopId).then(function (response) {
                 if (response.data.error_code === 0) {
-                    $scope.shop = response.data.shop;
                     $scope.list_coupon = [];
-                    if (response.data.shop[0].shop_use_coupon.length > 0) {
-                        for (var i = 0; i < response.data.shop[0].shop_use_coupon.length; i++) {
-                            if (response.data.shop[0].shop_use_coupon[i].approved === "pending") {
-                                $scope.list_coupon.push(response.data.shop[0].shop_use_coupon[i]);
-                            }
-                        }
-                    }
-                }
-            });
-
-        }
-
-        //get coupon user use for this shop
-        Thesocket.on('show_coupon_for_shop', function (shop_id, user_img, user_name) {
-            $scope.user_img = user_img;
-            $scope.user_name = user_name;
-            DataCenter.getShopbyId(shop_id).then(function (response) {
-                if (response.data.error_code === 0) {
                     $scope.shop = response.data.shop;
                     if ($scope.auth[0].user_id === $scope.shop[0].shop_boss) {
                         $scope.loading = true;
                         $timeout(function () {
-                            $scope.list_coupon = response.data.shop[0].shop_use_coupon;
+                            if (response.data.shop[0].shop_use_coupon.length > 0) {
+                                for (var i = 0; i < response.data.shop[0].shop_use_coupon.length; i++) {
+                                    if (response.data.shop[0].shop_use_coupon[i].approved === "pending") {
+                                        $scope.list_coupon.push(response.data.shop[0].shop_use_coupon[i]);
+                                    }
+                                }
+                            }
                             $scope.loading = false;
                         }, 1500);
                     }
                     else {
                         if ($scope.shop[0].shop_manager.length > 0) {
                             for (var i = 0; i < $scope.shop[0].shop_manager.length; i++) {
-                                if ($scope.shop[0].shop_manager[i].id === $scope.auth[0].user_id) {
+                                if ($scope.shop[0].shop_manager[i].text === $scope.auth[0].user_id) {
                                     $scope.loading = true;
                                     $timeout(function () {
-                                        $scope.list_coupon = response.data.shop[0].shop_use_coupon;
+                                        if (response.data.shop[0].shop_use_coupon.length > 0) {
+                                            for (var i = 0; i < response.data.shop[0].shop_use_coupon.length; i++) {
+                                                if (response.data.shop[0].shop_use_coupon[i].approved === "pending") {
+                                                    $scope.list_coupon.push(response.data.shop[0].shop_use_coupon[i]);
+                                                }
+                                            }
+                                        }
                                         $scope.loading = false;
                                     }, 1500);
                                 }
@@ -50,24 +44,27 @@ app
                     }
                 }
             })
+        }
+
+        if ($scope.auth) {
+            getShopbyId($scope.auth[0].role[0].shop);
+        }
+
+        //get coupon user use for this shop
+        Thesocket.on('show_coupon_for_shop', function (shop_id, user_img, user_name) {
+            $scope.scouponid = '';
+            $scope.sfulname = '';
+            $scope.user_img = user_img;
+            $scope.user_name = user_name;
+            $scope.list_coupon = [];
+            getShopbyId(shop_id);
         });
 
         //keo de cap nhat
         $scope.doRefresh = function () {
             $timeout(function () {
                 $scope.$broadcast('scroll.refreshComplete');
-                DataCenter.getShopbyId($scope.auth[0].role[0].shop).then(function (response) {
-                    if (response.data.error_code === 0) {
-                        $scope.list_coupon = [];
-                        if (response.data.shop[0].shop_use_coupon.length > 0) {
-                            for (var i = 0; i < response.data.shop[0].shop_use_coupon.length; i++) {
-                                if (response.data.shop[0].shop_use_coupon[i].approved === "pending") {
-                                    $scope.list_coupon.push(response.data.shop[0].shop_use_coupon[i]);
-                                }
-                            }
-                        }
-                    }
-                });
+                getShopbyId($scope.auth[0].role[0].shop);
             }, 1500)
         };
 
@@ -86,59 +83,76 @@ app
             $scope.modal = modal;
         });
 
-        //accept coupon or cancel coupon
-        $scope.comfirm = function (user_id, id, coupon_id, avatar, name) {
-            $scope.user_id = user_id;
-            $scope.couponId = id;
-            $scope.the_id = coupon_id;
-            var confirmPopup = $ionicPopup.confirm({
-                title: 'Áp dụng Coupon cho khách hàng',
-                cssClass:'',
-                template: '<div class="row" style="margin-top: 45px;"><img class="coupon-img-avatar" src="' + avatar + '"></div> <a class= "item" style="text-align:center;">  <span class="coupon-name">' + name + '</span>  </a> ',
-                buttons: [{
-                    text: 'Hủy',
-                    type: 'button-positive',
-                    onTap: function (e) {
-                        return false;
-                    }
-                }, {
-                    text: 'Ok',
-                    type: 'button-positive',
-                    onTap: function (e) {
-                        return true;
-                    }
-                }]
-            });
+        //error
+        $ionicModal.fromTemplateUrl('./partial/oneconnect.html', {
+            scope: $scope,
+            animation: 'slide-in-up'
+        }).then(function (modal) {
+            $scope.one = modal;
+        });
 
-            confirmPopup.then(function (res) {
-                if (res) {
-                    //send success
-                    Thesocket.emit('send_error', $scope._message, $scope.user_id, 0);
-                    $ionicLoading.show({
-                        template: 'Coupon đã được chấp nhận <br/> <i class="ion ion-ios-checkmark coupon-done"></i>',
-                        duration: 1500
-                    })
+        //one connect to coupon
+        Thesocket.on('disableconnect', function (coupon_id, fulname, avatar) {
+            $scope.sfulname = fulname;
+            $scope.scouponid = coupon_id;
+            $scope.savatar = avatar;
+        })
 
-                    DataCenter.AcceptCoupon($scope.shop[0].shopId, $scope.couponId, $scope.the_id).then(function (response) {
-                        if (response.data.error_code === 0) {
-                            DataCenter.getShopbyId($scope.auth[0].role[0].shop).then(function (response) {
+        $scope.changef = function (user_id, id, coupon_id, avatar, name) {
+            if ($scope.scouponid !== '') {
+                $scope.one.show();
+            } else {
+                //accept coupon or cancel coupon
+
+                // $scope.comfirm = function (user_id, id, coupon_id, avatar, name, shop_img) {
+                    Thesocket.emit('oneconnect', coupon_id, $scope.auth[0].info[0].fulname, $scope.auth[0].user_img);
+                    $scope.user_id = user_id;
+                    $scope.couponId = id;
+                    $scope.the_id = coupon_id;
+                    var confirmPopup = $ionicPopup.confirm({
+                        title: 'Áp dụng cho khách hàng',
+                        cssClass: '',
+                        template: '<div class="row" style="margin-top: 45px;"><img class="coupon-img-avatar" src="' + avatar + '"></div> <a class= "item" style="text-align:center;">  <span class="coupon-name">' + name + '</span>  </a> ',
+                        buttons: [{
+                            text: 'Hủy',
+                            type: 'button-positive',
+                            onTap: function (e) {
+                                return false;
+                            }
+                        }, {
+                            text: 'Ok',
+                            type: 'button-positive',
+                            onTap: function (e) {
+                                return true;
+                            }
+                        }]
+                    });
+
+                    confirmPopup.then(function (res) {
+                        if (res) {
+                            //send success
+                            Thesocket.emit('send_error', $scope._message, $scope.user_id, 0);
+                            $ionicLoading.show({
+                                template: 'Coupon đã được chấp nhận <br/> <i class="ion ion-ios-checkmark coupon-done"></i>',
+                                duration: 1500
+                            })
+
+                            DataCenter.AcceptCoupon($scope.shop[0].shopId, $scope.couponId, $scope.the_id).then(function (response) {
                                 if (response.data.error_code === 0) {
-                                    $scope.list_coupon = [];
-                                    if (response.data.shop[0].shop_use_coupon.length > 0) {
-                                        for (var i = 0; i < response.data.shop[0].shop_use_coupon.length; i++) {
-                                            if (response.data.shop[0].shop_use_coupon[i].approved === "pending") {
-                                                $scope.list_coupon.push(response.data.shop[0].shop_use_coupon[i]);
-                                            }
-                                        }
-                                    }
+                                    Thesocket.emit('user_use_coupon', $scope.shop[0].shopId);
+                                    getShopbyId($scope.auth[0].role[0].shop);
                                 }
                             });
+                        } else {
+                            $scope.modal.show();
                         }
                     });
-                } else {
-                    $scope.modal.show();
-                }
-            });
+                // }
+            }
+        }
+
+        $scope.close_one = function(){
+            $scope.one.hide();
         }
 
         //send error message for user
@@ -168,18 +182,8 @@ app
             })
             DataCenter.CancelCoupon($scope.shop[0].shopId, $scope.couponId).then(function (response) {
                 if (response.data.error_code === 0) {
-                    DataCenter.getShopbyId($scope.auth[0].role[0].shop).then(function (response) {
-                        if (response.data.error_code === 0) {
-                            $scope.list_coupon = [];
-                            if (response.data.shop[0].shop_use_coupon.length > 0) {
-                                for (var i = 0; i < response.data.shop[0].shop_use_coupon.length; i++) {
-                                    if (response.data.shop[0].shop_use_coupon[i].approved === "pending") {
-                                        $scope.list_coupon.push(response.data.shop[0].shop_use_coupon[i]);
-                                    }
-                                }
-                            }
-                        }
-                    });
+                    Thesocket.emit('user_use_coupon', $scope.shop[0].shopId);
+                    getShopbyId($scope.auth[0].role[0].shop);
                 }
             })
         }

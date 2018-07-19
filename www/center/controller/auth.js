@@ -16,11 +16,16 @@ app
                 $rootScope.list_fb = [];
                 //check exit feedback
                 if ($scope.auth[0].use_coupon.length > 0) {
-                    $scope.auth[0].use_coupon.forEach(element => {
-                        if (element.rfeedback[0].id === 1 && element.feedback === "") {
-                            $rootScope.list_fb.push(element);
+                    // $scope.auth[0].use_coupon.forEach(element => {
+                    //     if (element.rfeedback[0].id === 1 && element.feedback === "") {
+                    //         $rootScope.list_fb.push(element);
+                    //     }
+                    // });
+                    for (var i = 0; i < $scope.auth[0].use_coupon.length; i++) {
+                        if($scope.auth[0].use_coupon[i].id === 1 && $scope.auth[0].use_coupon[i].feedback === ""){
+                            $rootScope.list_fb.push($scope.auth[0].use_coupon[i]);
                         }
-                    });
+                    }
                     localStorage.setItem('list_fb', JSON.stringify($rootScope.list_fb));
                 }
 
@@ -59,11 +64,16 @@ app
                         $rootScope.list_fb = [];
                         //check exit feedback
                         if ($scope.auth_menu[0].use_coupon.length > 0) {
-                            $scope.auth_menu[0].use_coupon.forEach(element => {
-                                if (element.rfeedback[0].id === 1 && element.feedback === "") {
-                                    $rootScope.list_fb.push(element);
+                            // $scope.auth_menu[0].use_coupon.forEach(element => {
+                            //     if (element.rfeedback[0].id === 1 && element.feedback === "") {
+                            //         $rootScope.list_fb.push(element);
+                            //     }
+                            // });
+                            for (var i = 0; i < $scope.auth_menu[0].use_coupon.length; i++) {
+                                if($scope.auth_menu[0].use_coupon[i].id === 1 && $scope.auth_menu[0].use_coupon[i].feedback === ""){
+                                    $rootScope.list_fb.push($scope.auth_menu[0].use_coupon[i]);
                                 }
-                            });
+                            }
                             localStorage.setItem('list_fb', JSON.stringify($rootScope.list_fb));
                         }
 
@@ -124,11 +134,16 @@ app
                     $scope.list_fb = [];
                     //check exit feedback
                     if (response.data.auth[0].use_coupon.length > 0) {
-                        response.data.auth[0].use_coupon.forEach(element => {
-                            if (element.rfeedback[0].id === 1 && element.feedback === "") {
-                                $scope.list_fb.push(element);
+                        // response.data.auth[0].use_coupon.forEach(element => {
+                        //     if (element.rfeedback[0].id === 1 && element.feedback === "") {
+                        //         $scope.list_fb.push(element);
+                        //     }
+                        // });
+                        for (var i = 0; i < response.data.auth[0].use_coupon.length; i++) {
+                            if(response.data.auth[0].use_coupon[i].id === 1 && response.data.auth[0].use_coupon[i].feedback === ""){
+                                $scope.list_fb.push(response.data.auth[0].use_coupon[i]);
                             }
-                        });
+                        }
                     }
                 }
             });
@@ -152,12 +167,17 @@ app
             $scope.modal = modal;
         });
 
-        $scope.show_feedback = function(id){
-            $scope.list_fb.forEach(element => {
-                if(element._id === id){
-                    $scope.coupon_detail = element;
+        $scope.show_feedback = function (id) {
+            // $scope.list_fb.forEach(element => {
+            //     if(element._id === id){
+            //         $scope.coupon_detail = element;
+            //     }
+            // });
+            for(var i =0; i<$scope.list_fb.length; i++){
+                if($scope.list_fb[i]._id === id){
+                    $scope.coupon_detail = $scope.list_fb[i];
                 }
-            });
+            }
             $scope.modal.show();
         }
 

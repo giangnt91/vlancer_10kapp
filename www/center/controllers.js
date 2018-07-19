@@ -42,13 +42,15 @@ app
         }
 
         function get_auth() {
-            DataCenter.signIn($scope.auth[0].user_id, $scope.auth[0].user_img).then(function (response) {
-                if (response.data.error_code === 0) {
-                    localStorage.setItem('auth', JSON.stringify(response.data.auth));
-                    $rootScope.auth_menu = response.data.auth;
-                    $scope.list_coupon = response.data.auth[0].total_list_coupon;
-                }
-            });
+            if($scope.auth){
+                DataCenter.signIn($scope.auth[0].user_id, $scope.auth[0].user_img).then(function (response) {
+                    if (response.data.error_code === 0) {
+                        localStorage.setItem('auth', JSON.stringify(response.data.auth));
+                        $rootScope.auth_menu = response.data.auth;
+                        $scope.list_coupon = response.data.auth[0].total_list_coupon;
+                    }
+                });
+            }
         }
 
 

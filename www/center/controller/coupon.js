@@ -65,7 +65,6 @@ app
             if (parseInt(_limit) > parseInt(_today)) {
                 $ionicLoading.show({
                     template: 'Vui lòng chờ cửa hàng chấp nhận Coupon <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
-                    duration: 10000
                 })
 
                 DataCenter.UseruseCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail).then(function (response) {
@@ -74,13 +73,21 @@ app
                     }
                 });
 
+                $scope.shopinreview = false;
+                Thesocket.on('disableconnect', function (coupon_id, fulname) {
+                    $scope.shopinreview = true;
+                })
+
                 //timeout 10s
                 $timeout(function () {
-                    DataCenter.TimeoutCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail._id).then(function (response) {
-                       if(response.data.error_code === 0){
-                        Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0].user_img, $scope.auth[0].info[0].fulname);
-                       }
-                    })
+                    if ($scope.shopinreview === false) {
+                        DataCenter.TimeoutCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail._id).then(function (response) {
+                            if (response.data.error_code === 0) {
+                                $ionicLoading.hide();
+                                Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0].user_img, $scope.auth[0].info[0].fulname);
+                            }
+                        })
+                    }
                 }, 10000)
 
             } else {
