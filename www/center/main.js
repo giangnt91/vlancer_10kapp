@@ -1,8 +1,6 @@
 var app = angular.module('10kCoupon', ['ionic', 'ionic-material', 'ngCordova', 'MobileService', 'btford.socket-io']);
 
-app.config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
-    $ionicConfigProvider.navBar.alignTitle('center');
-    
+app.config(function ($stateProvider, $urlRouterProvider) {    
     $stateProvider
 
         .state('app', {

@@ -1,6 +1,6 @@
 ﻿<ion-side-menus enable-menu-with-back-views="false">
     <ion-side-menu-content>
-        <ion-nav-bar class="bar-assertive">
+        <ion-nav-bar class="bar-assertive" align-title="center">
             <ion-nav-back-button class="no-text">
             </ion-nav-back-button>
             <ion-nav-buttons side="left">
@@ -19,23 +19,23 @@
         <ion-content class="stable-bg has-expanded-header bg">
             <div class="list">
 
-                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/home" ng-if="!_menu_shop">
+                <a menu-close class="item item-icon-left" nav-transition="android" href="#/app/home" ng-if="!_menu_shop">
                     <i class="icon ion-ios-home"></i>
                     My Coupon
                 </a>
 
-                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/listfeedback" ng-if="!_menu_shop">
+                <a menu-close class="item item-icon-left" nav-transition="android" href="#/app/listfeedback" ng-if="!_menu_shop">
                     <i class="icon ion-ios-paper"></i>
                     Feedback
                     <!-- <span class="badge badge-assertive" ng-if="list_fb.length > 0">{{list_fb.length}}</span> -->
                 </a>
 
-                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/shop" ng-if="_menu_shop">
+                <a menu-close class="item item-icon-left" nav-transition="android" href="#/app/shop" ng-if="_menu_shop">
                     <i class="icon ion-ios-home"></i>
                     Home
                 </a>
 
-                <a menu-close class="item item-icon-left" nav-transition="ios" href="#/app/account">
+                <a menu-close class="item item-icon-left" nav-transition="android" href="#/app/account">
                     <i class="icon ion-ios-person"></i>
                     Thông tin tài khoản
                 </a>
@@ -46,7 +46,7 @@
                     href="#/app/login"
                 </a> -->
 
-                <a menu-close class="item item-icon-left" nav-transition="ios" ng-click="logout()">
+                <a menu-close class="item item-icon-left" nav-transition="android" ng-click="logout()">
                     <i class="icon ion-android-exit"></i>
                     Đăng xuất
                 </a>
