@@ -73,10 +73,10 @@ app
                     }
                 });
 
-                // $scope.shopinreview = false;
-                // Thesocket.on('disableconnect', function (coupon_id, fulname) {
-                //     $scope.shopinreview = true;
-                // })
+                $scope.shopinreview = false;
+                Thesocket.on('disableconnect', function (coupon_id, fulname) {
+                    $scope.shopinreview = true;
+                })
 
                 //timeout 10s
                 $timeout(function () {
