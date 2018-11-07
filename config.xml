@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="io.ionic.couponapp" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Coupon 10k</name>
+<widget id="io.app.coupon10k" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Coupon 10K</name>
     <author email="giang.dev.top@gmail.com" href="">Trường giang</author>
     <content src="index.html" />
     <access origin="*" />
@@ -18,8 +18,7 @@
     <preference name="SplashMaintainAspectRatio" value="true" />
     <preference name="FadeSplashScreenDuration" value="300" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
-    <preference name="SplashScreen" value="screen" />
-    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="SplashScreen" value="none" />
     <platform name="android">
         <allow-intent href="market:*" />
         <icon src="resources/icon.png" />
@@ -86,5 +85,5 @@
         <variable name="SENDER_ID" value="642203001429" />
         <variable name="FCM_VERSION" value="11.6.2" />
     </plugin>
-    <engine name="android" spec="^7.0.0" />
+    <engine name="android" spec="^7.1.1" />
 </widget>

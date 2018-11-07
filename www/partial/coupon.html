@@ -1,21 +1,21 @@
 <ion-view cache-view="false" view-title="{{coupon_detail.shop_name}}">
     <ion-content style="margin-bottom: 40px" scroll="true">
-        <div class="list">
+        <div class="list animate-blinds">
 
             <div class="row" style="padding: 0px; height: 220px;">
-                <div class="col coupon-img" style="background: url({{coupon_detail.shop_cover}}) no-repeat;
+                <div class="col coupon-img item" style="background: url({{coupon_detail.shop_cover}}) no-repeat;
                 background-size: cover;">
                 </div>
             </div>
 
             <div class="row" style="margin-bottom: 15px">
-                <img class="coupon-img-avatar" src="{{coupon_detail.shop_avatar}}">
+                <img class="coupon-img-avatar item" src="{{coupon_detail.shop_avatar}}">
             </div>
 
             <a class="item" style="text-align:center;">
                 <span class="coupon-price">{{coupon_detail.value}} VNĐ</span>
             </a>
-            <p ng-bind-html="coupon_detail.coupon_info | unsafe" style="padding: 30px; padding-bottom: 0; padding-top: 10px"></p>
+            <p class="item" ng-bind-html="coupon_detail.coupon_info | unsafe" style="padding: 30px; padding-bottom: 0; padding-top: 10px; font-size: 14px"></p>
             <!-- <a class="item item-icon-left">
                 <i class="icon ion-android-arrow-dropright"></i>
                 <p ng-bind-html="coupon_detail.coupon_info | unsafe"></p>
@@ -28,7 +28,8 @@
 
             <a class="item item-icon-left">
                 <i class="icon ion-android-arrow-dropright"></i>
-                Hạn sử dụng: {{coupon_detail.time_expire}} <span ng-if="coupon_detail.time_expire !== '1'">Tháng</span> <span ng-if="coupon_detail.time_expire === '1'">Năm</span>
+                Hạn sử dụng: {{coupon_detail.time_expire}} <span ng-if="coupon_detail.time_expire !== '1'">Tháng</span>
+                <span ng-if="coupon_detail.time_expire === '1'">Năm</span>
             </a>
 
             <a class="item item-icon-left">
@@ -38,7 +39,22 @@
 
         </div>
     </ion-content>
-    <div class="bar bar-footer" style="background: #EC407A; color: white" ng-click="use()">
+    <div class="bar bar-footer" style="background: #EC407A; color: white" onclick="runTimer()" ng-click="use()">
         <div class="title">SỬ DỤNG</div>
     </div>
 </ion-view>
+
+<script>
+
+    function runTimer() {
+        var timeleft = 60;
+        var downloadTimer = setInterval(function(){
+        document.getElementById("seconds").textContent = 0;
+        timeleft--;
+        document.getElementById("seconds").textContent = timeleft;
+        if(timeleft <= 0)
+            clearInterval(downloadTimer);
+        },1000);
+    }
+
+</script>

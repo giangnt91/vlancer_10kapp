@@ -3,8 +3,8 @@
         <ion-refresher pulling-text="Kéo thả để cập nhật" on-refresh="doRefresh()">
         </ion-refresher>
 
-        <div ng-show="loading">
-            <div class="row">
+        <!-- <div ng-show="loading">
+            <div class="row" ng-repeat="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
                 <div class="col">
                     <div class="img-animated-background">
                     </div>
@@ -18,46 +18,19 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="img-animated-background">
-                    </div>
-                </div>
-                <div class="col col-75">
-                    <div class="h2-animated-background">
-                    </div>
-                    <div class="h2-animated-background">
-                    </div>
-                    <div class="h2-animated-background">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="img-animated-background">
-                    </div>
-                </div>
-                <div class="col col-75">
-                    <div class="h2-animated-background">
-                    </div>
-                    <div class="h2-animated-background">
-                    </div>
-                    <div class="h2-animated-background">
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        </div> -->
         <div class="list" ng-show="!loading">
             <a class="item item-thumbnail-left item-icon-right" ng-show="list_coupon.length > 0" ng-repeat="content in list_coupon" style="border-bottom: 1px solid rgba(236, 64, 122, 0.2) !important; min-height: 100px" ng-click="changef(content.coupon.userid_get_coupon, content._id, content.coupon._id, content.coupon.userid_get_coupon[0].img, content.coupon.userid_get_coupon[0].name)">
-                <img src="{{content.coupon.shop_avatar}}">
-                <h2 class="name_shop">{{content.coupon.shop_name}} <span ng-if="scouponid === content.coupon._id">| Đang duyệt bởi <span style="color: #EC407A">{{sfulname}}</span></span> </h2>
-                <p>Hạn sử dụng: {{content.coupon.time_expire}}
-                        <span ng-if="content.time_expire !== '1'">Tháng</span>
-                        <span ng-if="content.time_expire === '1'">Năm</span>
+                <img src="{{content.coupon.userid_get_coupon[0].img}}">
+                <h2 class="name_shop">{{content.coupon.userid_get_coupon[0].name}}</h2>
+                <p ng-if="!sfulname">
+                    Ngày hết hạn: {{content.coupon.limit_time}}
                 </p>
+
+                <p ng-if="sfulname">
+                    Đang duyệt bởi <span style="color: #EC407A">{{sfulname}}</span>
+                </p>
+
                 <span class="coupona">
                     {{content.coupon.value}} VNĐ
                 </span>

@@ -1,6 +1,6 @@
 <ion-modal-view>
     <ion-header-bar class="bar bar-assertive" align-title="center">
-        <h1 class="title">Từ Chối Coupon</h1>
+        <h1 class="title">Cửa Hàng Từ Chối Coupon</h1>
     </ion-header-bar>
     <ion-content>
         <div class="row">
@@ -8,14 +8,12 @@
         </div>
         <div class="row">
             <div class="col">
-              <center><p class="coupon-error">Coupon của bạn không được chấp nhận !</p></center>  
+              <p class="coupon-error">Coupon của bạn không được cửa hàng {{coupon_detail.shop_name}} chấp nhận, dưới đây là lý do cửa hàng đưa ra để không duyệt Coupon.</p>
             </div>
         </div>
 
-        <div class="list" style="margin-bottom: 50px">
-            <p>
-                <textarea id="message" class="input coupon-text-feedback" rows="7" cols="65" ng-model="error_mesa" readonly></textarea>
-            </p>
+        <div class="list card" style="margin-bottom: 50px">
+            <p class="coupon-text-feedback">{{error_mesa}}</p>
         </div>
 
     </ion-content>

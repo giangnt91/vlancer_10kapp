@@ -11,8 +11,8 @@ app
                     $scope.list_coupon = [];
                     $scope.shop = response.data.shop;
                     if ($scope.auth[0].user_id === $scope.shop[0].shop_boss) {
-                        $scope.loading = true;
-                        $timeout(function () {
+                        // $scope.loading = true;
+                        // $timeout(function () {
                             if (response.data.shop[0].shop_use_coupon.length > 0) {
                                 for (var i = 0; i < response.data.shop[0].shop_use_coupon.length; i++) {
                                     if (response.data.shop[0].shop_use_coupon[i].approved === "pending") {
@@ -20,15 +20,15 @@ app
                                     }
                                 }
                             }
-                            $scope.loading = false;
-                        }, 1500);
+                        //     $scope.loading = false;
+                        // }, 1500);
                     }
                     else {
                         if ($scope.shop[0].shop_manager.length > 0) {
                             for (var i = 0; i < $scope.shop[0].shop_manager.length; i++) {
                                 if ($scope.shop[0].shop_manager[i].text === $scope.auth[0].user_id) {
-                                    $scope.loading = true;
-                                    $timeout(function () {
+                                    // $scope.loading = true;
+                                    // $timeout(function () {
                                         if (response.data.shop[0].shop_use_coupon.length > 0) {
                                             for (var i = 0; i < response.data.shop[0].shop_use_coupon.length; i++) {
                                                 if (response.data.shop[0].shop_use_coupon[i].approved === "pending") {
@@ -36,8 +36,8 @@ app
                                                 }
                                             }
                                         }
-                                        $scope.loading = false;
-                                    }, 1500);
+                                    //     $scope.loading = false;
+                                    // }, 1500);
                                 }
                             }
                         }
@@ -51,12 +51,14 @@ app
         }
 
         //get coupon user use for this shop
-        Thesocket.on('show_coupon_for_shop', function (shop_id, user_img, user_name) {
+        Thesocket.on('show_coupon_for_shop', function (shop_id, _id) {
             $scope.scouponid = '';
             $scope.sfulname = '';
-            $scope.user_img = user_img;
-            $scope.user_name = user_name;
-            $scope.list_coupon = [];
+            // $scope.user_img = user_img;
+            // $scope.user_name = user_name;
+            $scope.shopId = shop_id;
+            $scope._id = _id;
+            // $scope.list_coupon = [];
             getShopbyId(shop_id);
         });
 
@@ -69,10 +71,14 @@ app
         };
 
         //loading
+        $ionicLoading.show({
+            template: 'Đang tải dữ liệu <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
+            duration: 700
+        })
         $scope.loading = true;
         $timeout(function () {
             $scope.loading = false;
-        }, 1500);
+        }, 800);
 
 
         //reject
@@ -141,6 +147,11 @@ app
                                 if (response.data.error_code === 0) {
                                     Thesocket.emit('user_use_coupon', $scope.shop[0].shopId);
                                     getShopbyId($scope.auth[0].role[0].shop);
+
+                                    DataCenter.UpdateCouponfeed($scope._id, $scope.the_id, null, "").then(function (response) {
+                                    })
+                                    DataCenter.UpdateRating($scope.shopId, $scope.the_id, null, "").then(function (res) {
+                                    })
                                 }
                             });
                         } else {
@@ -170,7 +181,7 @@ app
             if ($scope.show_text === false) {
                 $scope._message = "Khách không có mặt tại cửa hàng";
             } else {
-                $scope._message = jQuery('#message').val();
+                $scope._message = jQuery('#rejectmessage').val();
             }
 
             //send error
@@ -180,6 +191,7 @@ app
                 template: 'Đã gửi lý do không chấp nhận tới khách hàng! <br/> <i class="ion ion-ios-checkmark coupon-done"></i>',
                 duration: 1500
             })
+            
             DataCenter.CancelCoupon($scope.shop[0].shopId, $scope.couponId).then(function (response) {
                 if (response.data.error_code === 0) {
                     Thesocket.emit('user_use_coupon', $scope.shop[0].shopId);

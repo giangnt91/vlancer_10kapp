@@ -1,6 +1,13 @@
 /* Empty. Add your own CSS if you like */
 
 /* Utilities */
+.khtt{
+    margin-top: -10px;
+}
+
+.khtt2{
+    top: 20px !important;
+}
 
 .hero.slide-up * {
     opacity: 1;
@@ -87,6 +94,20 @@ p {
     transition: all 0.2s ease-in-out;
     padding-top: 8px;
     color: #EC407A;
+}
+
+.timer{
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 7px;
+}
+
+.timer #seconds{
+    display: block;
+    clear: both;
 }
 
 .item.item-radio:active .radio-icon {
@@ -242,10 +263,11 @@ p {
 
 .all-center h4 {
     color: #fff;
+    font-size: 30px;
 }
 
 .logo {
-    width: 120px;
+    width: 100px;
     /* border: 1px solid #fff; */
     border-radius: 15px;
 }
@@ -267,7 +289,7 @@ p {
 .login {
     position: absolute;
     /* left: 50%; */
-    top: 20%;
+    top: 17%;
     /* transform: translate(-50%, -50%); */
     width: 100%;
     height: 50%;
@@ -277,16 +299,19 @@ p {
 }
 
 .lgbuton {
-    background: #fff !important;
+    background: #FF0000 !important;
     box-shadow: none !important;
-    color: #EC407A !important;
+    color: #fff !important;
     border-radius: 5px !important;
     font-size: 16px !important;
     font-weight: 400;
 }
 
 .bg {
-    background: rgba(236, 64, 122, .5) !important;
+    /* background: rgba(236, 64, 122, .5) !important; */
+    background-image: url('../img/login2.png');
+    background-size: cover;
+
 }
 
 .bg a {
@@ -369,33 +394,35 @@ p {
     color: red;
     font-size: 18px;
     padding: 0px 12px;
+    margin-bottom: 5px;
 }
 
 .coupon-text-feedback {
     line-height: 1.4;
     font-size: 18px;
-    background: rgba(221, 221, 221, 0.3);
-    width: 95% !important;
+    background: rgba(221, 221, 221, 0.2);
+    /* width: 95% !important; */
     margin: 0 auto;
     border-radius: 5px;
-    padding: 15px !important;
+    padding: 10px !important;
 }
 
 .coupon-img {
-    -webkit-filter: blur(10px);
-    -moz-filter: blur(10px);
-    -o-filter: blur(10px);
-    -ms-filter: blur(10px);
-    filter: blur(10px);
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(5px);
 }
 
 .coupon-img-avatar {
     border-radius: 50% !important;
     position: relative;
     margin: 0 auto;
-    width: 120px;
-    height: 120px;
+    width: 40%;
+    height: 40%;
     margin-top: -20%;
+    padding: 0 !important;
 }
 
 .coupon-feedback-img-avatar {

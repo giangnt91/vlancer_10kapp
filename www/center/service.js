@@ -1,6 +1,6 @@
 angular.module('MobileService', [])
     .factory('DataCenter', function ($http) {
-        var api_gateway_url = 'http://35.200.213.108:2018';
+        var api_gateway_url = 'https://api.coupon10k.com';
         // var api_gateway_url = 'http://localhost:2018';
         var parameter;
         var url;
@@ -21,6 +21,14 @@ angular.module('MobileService', [])
                     coupon: coupon
                 });
                 url = api_gateway_url + '/musecoupon';
+                return $http.post(url, parameter, header);
+            },
+            waitShopApproved: function(_id, couponId){
+                parameter = JSON.stringify({
+                    _id: _id,
+                    couponId: couponId
+                });
+                url = api_gateway_url + '/waitshopapproved';
                 return $http.post(url, parameter, header);
             },
             getShopbyId: function (shopId) {
@@ -44,6 +52,14 @@ angular.module('MobileService', [])
                     couponId: couponId
                 });
                 url = api_gateway_url + '/timeoutcoupon';
+                return $http.post(url, parameter, header);
+            },
+            TimeoutUser: function(_id, couponId){
+                parameter = JSON.stringify({
+                    _id: _id,
+                    couponId: couponId
+                });
+                url = api_gateway_url + '/timeoutuser';
                 return $http.post(url, parameter, header);
             },
             AcceptCoupon: function (shopid, couponId, get_coupon_id) {
@@ -105,7 +121,8 @@ angular.module('MobileService', [])
     })
 
     .factory('Thesocket', function (socketFactory) {
-        var api_gateway_url = 'http://35.200.213.108:2018';
+        // var api_gateway_url = 'http://35.200.213.108:2018';
+        var api_gateway_url = 'https://api.coupon10k.com';
         var socketConnection = io.connect(api_gateway_url);
         var socket = socketFactory({
             ioSocket: socketConnection

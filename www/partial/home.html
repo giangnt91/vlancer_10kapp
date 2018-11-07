@@ -4,8 +4,8 @@
         </ion-refresher>
 
         <!-- loading -->
-        <div ng-show="loading">
-            <div class="row">
+        <!-- <div ng-show="loading">
+            <div class="row" ng-repeat="i in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]">
                 <div class="col">
                     <div class="img-animated-background">
                     </div>
@@ -19,45 +19,15 @@
                     </div>
                 </div>
             </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="img-animated-background">
-                    </div>
-                </div>
-                <div class="col col-75">
-                    <div class="h2-animated-background">
-                    </div>
-                    <div class="h2-animated-background">
-                    </div>
-                    <div class="h2-animated-background">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col">
-                    <div class="img-animated-background">
-                    </div>
-                </div>
-                <div class="col col-75">
-                    <div class="h2-animated-background">
-                    </div>
-                    <div class="h2-animated-background">
-                    </div>
-                    <div class="h2-animated-background">
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        </div> -->
         <!-- end loading -->
         <div class="list" ng-show="!loading">
             <a class="item item-thumbnail-left item-icon-right" nav-transition="ios" ng-show="list_coupon.length > 0" ng-repeat="content in list_coupon" href="#/app/coupon/{{content._id}}"
                 style="border-bottom: 1px solid rgba(236, 64, 122, 0.2) !important; min-height: 100px">
                 <img src="{{content.shop_avatar}}">
                 <h2 class="name_shop">{{content.shop_name}}</h2>
-                <p>Hạn sử dụng: {{content.time_expire}} <span ng-if="content.time_expire !== '1'">Tháng</span> <span ng-if="content.time_expire === '1'">Năm</span></p>
+                <!-- <p>Hạn sử dụng: {{content.limit_time}} <span ng-if="content.time_expire !== '1'">Tháng</span> <span ng-if="content.time_expire === '1'">Năm</span></p> -->
+                <p>Hạn sử dụng: {{content.limit_time}}</p>
                 <span class="coupona">
                     {{content.value}} VNĐ
                 </span>

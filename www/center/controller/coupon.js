@@ -1,7 +1,20 @@
 app
-    .controller('CouponCtrl', function ($scope, $filter, $state, ionicMaterialInk, $ionicSideMenuDelegate, $ionicHistory, $ionicLoading, $stateParams, $ionicModal, $timeout, DataCenter, Thesocket) {
+    .controller('CouponCtrl', function ($scope, $filter, $state, $ionicPopup, ionicMaterialInk, ionicMaterialMotion, $ionicSideMenuDelegate, $ionicHistory, $ionicLoading, $stateParams, $ionicModal, $timeout, DataCenter, Thesocket) {
         //effect for link
         ionicMaterialInk.displayEffect();
+        ionicMaterialMotion.blinds();
+
+        // $ionicLoading.show({
+        //     template: 'Đang tải dữ liệu <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
+        //     duration: 800
+        // })
+
+        //loading
+        // $scope.loading = true;
+        // $timeout(function () {
+        //     // get_auth();
+        //     $scope.loading = false;
+        // }, 1000);
 
         //show back buttom
         $ionicHistory.nextViewOptions({
@@ -63,13 +76,18 @@ app
 
             // check expired time
             if (parseInt(_limit) > parseInt(_today)) {
+                // <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>
                 $ionicLoading.show({
-                    template: 'Vui lòng chờ cửa hàng chấp nhận Coupon <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
+                    template: 'Vui lòng chờ cửa hàng duyệt trong<br/><br/> <div class="timer"> <span id="seconds">60</span> giây </div>',
                 })
 
                 DataCenter.UseruseCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail).then(function (response) {
                     if (response.data.error_code === 0) {
-                        Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0].user_img, $scope.auth[0].info[0].fulname);
+                        DataCenter.waitShopApproved($scope.auth[0]._id, $scope.coupon_detail._id).then(function (res) {
+                            if (res.data.error_code === 0) {
+                                Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0]._id);
+                            }
+                        })
                     }
                 });
 
@@ -78,17 +96,21 @@ app
                     $scope.shopinreview = true;
                 })
 
-                //timeout 10s
+                //timeout 60s
                 $timeout(function () {
-                    if ($scope.shopinreview === false) {
-                        DataCenter.TimeoutCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail._id).then(function (response) {
-                            if (response.data.error_code === 0) {
-                                $ionicLoading.hide();
-                                Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0].user_img, $scope.auth[0].info[0].fulname);
-                            }
-                        })
-                    }
-                }, 10000)
+                    // if ($scope.shopinreview === false) {
+                    DataCenter.TimeoutCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail._id).then(function (response) {
+                        if (response.data.error_code === 0) {
+                            DataCenter.TimeoutUser($scope.auth[0]._id, $scope.coupon_detail._id).then(function (res) {
+                                if (res.data.error_code === 0) {
+                                    $ionicLoading.hide();
+                                    Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0]._id);
+                                }
+                            })
+                        }
+                    })
+                    // }
+                }, 60000)
 
             } else {
                 $ionicLoading.show({
@@ -109,33 +131,39 @@ app
         }
 
         //show message shop and require feedback
+        localStorage.removeItem('last_id');
         Thesocket.on('show_error', function (message, user_id, id) {
             $scope.error_mesa = message;
-            if (user_id[0].id === $scope.auth[0].user_id) {
-                if (id === 1) {
-                    $ionicLoading.hide();
-                    $scope.error_modal.show();
-                } else {
-                    $ionicLoading.show({
-                        template: 'Coupon của bạn đã được chấp nhận <br/> <i class="ion ion-ios-checkmark coupon-done"></i>',
-                        duration: 3000
-                    })
-                    $timeout(function () {
-                        if ($scope.coupon_detail.rfeedback[0].id === 1) {
-                            DataCenter.UpdateCouponfeed($scope.auth[0]._id, $scope.coupon_detail._id, null, "").then(function (response) {
-                            })
-                            DataCenter.UpdateRating($scope.coupon_detail.shop_id, $scope.coupon_detail._id, null, "").then(function (res) {
-                            })
-                            $scope.modal.show();
-                        } else {
-                            $state.transitionTo('app.home', null, { reload: false });
-                            DataCenter.UpdateCouponfeed($scope.auth[0]._id, $scope.coupon_detail._id, null, "").then(function (response) {
-                            })
-                            DataCenter.UpdateRating($scope.coupon_detail.shop_id, $scope.coupon_detail._id, null, "").then(function (res) {
-                            })
-                        }
-                    }, 3000)
-
+            var last_id = localStorage.getItem('last_id');
+            if (last_id !== $scope.coupon_detail._id) {
+                localStorage.setItem('last_id', $scope.coupon_detail._id);
+                if (user_id[0].id === $scope.auth[0].user_id) {
+                    if (id === 1) {
+                        $ionicLoading.hide();
+                        $scope.error_modal.show();
+                        DataCenter.TimeoutUser($scope.auth[0]._id, $scope.coupon_detail._id).then(function (res) {
+                        })
+                    } else {
+                        $ionicLoading.show({
+                            template: 'Coupon của bạn đã được chấp nhận <br/> <i class="ion ion-ios-checkmark coupon-done"></i>',
+                            duration: 3000
+                        })
+                        $timeout(function () {
+                            if ($scope.coupon_detail.rfeedback[0].id === 1) {
+                                // DataCenter.UpdateCouponfeed($scope.auth[0]._id, $scope.coupon_detail._id, null, "").then(function (response) {
+                                // })
+                                // DataCenter.UpdateRating($scope.coupon_detail.shop_id, $scope.coupon_detail._id, null, "").then(function (res) {
+                                // })
+                                $scope.modal.show();
+                            } else {
+                                $state.transitionTo('app.home', null, { reload: false });
+                                // DataCenter.UpdateCouponfeed($scope.auth[0]._id, $scope.coupon_detail._id, null, "").then(function (response) {
+                                // })
+                                // DataCenter.UpdateRating($scope.coupon_detail.shop_id, $scope.coupon_detail._id, null, "").then(function (res) {
+                                // })
+                            }
+                        }, 3000)
+                    }
                 }
             }
         })
@@ -153,7 +181,7 @@ app
                     duration: 3000
                 })
             } else {
-                DataCenter.UpdateCouponfeed($scope.auth[0]._id, $scope.coupon_detail._id, $scope.rating, _message).then(function (response) {
+                DataCenter.UpdateAfterUser($scope.auth[0]._id, $scope.coupon_detail._id, $scope.rating, _message).then(function (response) {
                     if (response.data.error_code === 0) {
                         DataCenter.UpdateRating($scope.coupon_detail.shop_id, $scope.coupon_detail._id, $scope.rating, _message).then(function (res) {
                             if (res.data.error_code === 0) {
@@ -161,6 +189,9 @@ app
                                     template: 'Cám ơn bạn đã đánh giá và chấm điểm cho dịch vụ của chúng tôi ! <br/> <i class="ion ion-happy coupon-done"></i>',
                                     duration: 3000
                                 })
+
+                                $("#message").val(null);
+
                                 $timeout(function () {
                                     $scope.modal.hide();
                                     $state.transitionTo('app.home', null, { reload: false });
