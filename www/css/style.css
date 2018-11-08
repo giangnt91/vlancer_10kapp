@@ -1,4 +1,15 @@
 /* Empty. Add your own CSS if you like */
+.jst-hours{
+    display: none;
+}
+
+.jst-minutes{
+    display: none;
+}
+
+.jst-seconds{
+    display: none;
+}
 
 /* Utilities */
 .khtt{

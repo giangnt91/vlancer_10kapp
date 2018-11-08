@@ -78,7 +78,7 @@ app
             if (parseInt(_limit) > parseInt(_today)) {
                 // <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>
                 $ionicLoading.show({
-                    template: 'Vui lòng chờ cửa hàng duyệt trong<br/><br/> <div class="timer"> <span id="seconds">60</span> giây </div>',
+                    template: 'Vui lòng chờ cửa hàng duyệt trong<br/><br/> <div class="timer" data-seconds-left=60><span id="seconds">60</span> giây </div>',
                 })
 
                 DataCenter.UseruseCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail).then(function (response) {
@@ -97,6 +97,9 @@ app
                 })
 
                 //timeout 60s
+                $(function(){
+                    $('.timer').startTimer();
+                });
                 $timeout(function () {
                     // if ($scope.shopinreview === false) {
                     DataCenter.TimeoutCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail._id).then(function (response) {
