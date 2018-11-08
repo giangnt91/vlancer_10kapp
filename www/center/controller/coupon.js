@@ -107,6 +107,12 @@ app
                             DataCenter.TimeoutUser($scope.auth[0]._id, $scope.coupon_detail._id).then(function (res) {
                                 if (res.data.error_code === 0) {
                                     $ionicLoading.hide();
+                                    $ionicLoading.show({
+                                        template: 'Cửa hàng không phản hồi vui lòng thử lại.',
+                                    })
+                                    $timeout(function(){
+                                        $ionicLoading.hide();
+                                    }, 3000);
                                     Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0]._id);
                                 }
                             })
