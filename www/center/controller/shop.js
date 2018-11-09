@@ -145,7 +145,7 @@ app
 
                             DataCenter.AcceptCoupon($scope.shop[0].shopId, $scope.couponId, $scope.the_id).then(function (response) {
                                 if (response.data.error_code === 0) {
-                                    Thesocket.emit('user_use_coupon', $scope.shop[0].shopId);
+                                    // Thesocket.emit('user_use_coupon', $scope.shop[0].shopId);
                                     getShopbyId($scope.auth[0].role[0].shop);
 
                                     DataCenter.UpdateCouponfeed($scope._id, $scope.the_id, null, "").then(function (response) {
@@ -194,7 +194,7 @@ app
             
             DataCenter.CancelCoupon($scope.shop[0].shopId, $scope.couponId).then(function (response) {
                 if (response.data.error_code === 0) {
-                    Thesocket.emit('user_use_coupon', $scope.shop[0].shopId);
+                    // Thesocket.emit('user_use_coupon', $scope.shop[0].shopId);
                     getShopbyId($scope.auth[0].role[0].shop);
                 }
             })

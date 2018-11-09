@@ -121,7 +121,7 @@ angular.module('MobileService', [])
     })
 
     .factory('Thesocket', function (socketFactory) {
-        // var api_gateway_url = 'http://35.200.213.108:2018';
+        // var api_gateway_url = 'http://35.240.165.98:2018';
         var api_gateway_url = 'https://api.coupon10k.com';
         var socketConnection = io.connect(api_gateway_url);
         var socket = socketFactory({
