@@ -1,3 +1,10 @@
+.coupon{
+    margin: 0 auto;
+    width: 97%;
+}
+.item p{
+    color: #C1C1C1;
+}
 /* Empty. Add your own CSS if you like */
 .jst-hours{
     display: none;
@@ -356,6 +363,8 @@ p {
 
 .name_shop {
     margin-top: 9px !important;
+    font-weight: 500 !important;
+    text-transform: uppercase;
 }
 
 .item {
