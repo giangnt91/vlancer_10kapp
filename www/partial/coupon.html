@@ -1,6 +1,6 @@
 <ion-view cache-view="false" view-title="{{coupon_detail.shop_name}}">
-    <ion-content style="margin-bottom: 40px" scroll="true">
-        <div class="list animate-blinds">
+    <ion-content style="margin-bottom: 40px" overflow-scroll="true" class="has-header">
+        <div class="list" ng-show="!loading">
 
             <div class="row" style="padding: 0px; height: 220px;">
                 <div class="col coupon-img item" style="background: url({{coupon_detail.shop_cover}}) no-repeat;

@@ -2,19 +2,19 @@ app
     .controller('CouponCtrl', function ($scope, $filter, $state, $ionicPopup, ionicMaterialInk, ionicMaterialMotion, $ionicSideMenuDelegate, $ionicHistory, $ionicLoading, $stateParams, $ionicModal, $timeout, DataCenter, Thesocket) {
         //effect for link
         ionicMaterialInk.displayEffect();
-        ionicMaterialMotion.blinds();
+        // ionicMaterialMotion.blinds();
 
-        // $ionicLoading.show({
-        //     template: 'Đang tải dữ liệu <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
-        //     duration: 800
-        // })
+        $ionicLoading.show({
+            template: 'Đang tải dữ liệu <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
+            duration: 700
+        })
 
         //loading
-        // $scope.loading = true;
-        // $timeout(function () {
-        //     // get_auth();
-        //     $scope.loading = false;
-        // }, 1000);
+        $scope.loading = true;
+        $timeout(function () {
+            // get_auth();
+            $scope.loading = false;
+        }, 700);
 
         //show back buttom
         $ionicHistory.nextViewOptions({
