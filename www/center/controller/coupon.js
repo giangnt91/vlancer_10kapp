@@ -78,20 +78,21 @@ app
             if (parseInt(_limit) > parseInt(_today)) {
                 // <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>
                 $ionicLoading.show({
-                    template: 'Vui lòng chờ cửa hàng duyệt trong<br/><br/> <div class="timer" data-seconds-left=60><span id="seconds">60</span> giây </div>',
+                    template: 'Vui lòng chờ cửa hàng duyệt trong<br/><br/> <div class="timerdiv"><span class="timer" data-seconds-left=60></span> giây </div>',
                 })
 
                 DataCenter.UseruseCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail).then(function (response) {
                     if (response.data.error_code === 0) {
                         DataCenter.waitShopApproved($scope.auth[0]._id, $scope.coupon_detail._id).then(function (res) {
                             if (res.data.error_code === 0) {
-                                Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0]._id);
+                                Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.coupon_detail._id, $scope.auth[0]._id);
                             }
                         })
                     }
                 });
 
                 $scope.shopinreview = false;
+                $scope.shopapproved = false;
                 Thesocket.on('disableconnect', function (coupon_id, fulname) {
                     $scope.shopinreview = true;
                 })
@@ -100,25 +101,26 @@ app
                 $(function(){
                     $('.timer').startTimer();
                 });
+                
                 $timeout(function () {
-                    // if ($scope.shopinreview === false) {
-                    DataCenter.TimeoutCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail._id).then(function (response) {
-                        if (response.data.error_code === 0) {
-                            DataCenter.TimeoutUser($scope.auth[0]._id, $scope.coupon_detail._id).then(function (res) {
-                                if (res.data.error_code === 0) {
-                                    $ionicLoading.hide();
-                                    $ionicLoading.show({
-                                        template: 'Cửa hàng không phản hồi vui lòng thử lại.',
-                                    })
-                                    $timeout(function(){
+                    if ($scope.shopapproved === false) {
+                        DataCenter.TimeoutCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail._id).then(function (response) {
+                            if (response.data.error_code === 0) {
+                                DataCenter.TimeoutUser($scope.auth[0]._id, $scope.coupon_detail._id).then(function (res) {
+                                    if (res.data.error_code === 0) {
                                         $ionicLoading.hide();
-                                    }, 3000);
-                                    Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0]._id);
-                                }
-                            })
-                        }
-                    })
-                    // }
+                                        $ionicLoading.show({
+                                            template: 'Cửa hàng không phản hồi vui lòng thử lại.',
+                                        })
+                                        $timeout(function(){
+                                            $ionicLoading.hide();
+                                        }, 3000);
+                                        Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0]._id);
+                                    }
+                                })
+                            }
+                        })
+                    }
                 }, 60000)
 
             } else {
@@ -140,12 +142,14 @@ app
         }
 
         //show message shop and require feedback
-        localStorage.removeItem('last_id');
+        // localStorage.removeItem('last_id');
+        $scope.shopapproved = false;
         Thesocket.on('show_error', function (message, user_id, id) {
+            $scope.shopapproved = true;
             $scope.error_mesa = message;
-            var last_id = localStorage.getItem('last_id');
-            if (last_id !== $scope.coupon_detail._id) {
-                localStorage.setItem('last_id', $scope.coupon_detail._id);
+            // var last_id = localStorage.getItem('last_id');
+            // if (last_id !== $scope.coupon_detail._id) {
+                // localStorage.setItem('last_id', $scope.coupon_detail._id);
                 if (user_id[0].id === $scope.auth[0].user_id) {
                     if (id === 1) {
                         $ionicLoading.hide();
@@ -174,7 +178,7 @@ app
                         }, 3000)
                     }
                 }
-            }
+            // }
         })
 
         $scope.rate = function (id) {

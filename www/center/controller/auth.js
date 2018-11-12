@@ -10,7 +10,7 @@ app
             duration: 500
         })
 
-        // DataCenter.signIn('974804119351311', 'https://graph.facebook.com/974804119351311/picture?width=180&height=180').then(function (response) {
+        // DataCenter.signIn('100921194162016', 'https://graph.facebook.com/100921194162016/picture?width=180&height=180').then(function (response) {
         //     if (response.data.error_code === 0) {
         //         localStorage.setItem('auth', JSON.stringify(response.data.auth));
 

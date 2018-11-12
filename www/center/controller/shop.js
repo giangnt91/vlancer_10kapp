@@ -51,15 +51,32 @@ app
         }
 
         //get coupon user use for this shop
-        Thesocket.on('show_coupon_for_shop', function (shop_id, _id) {
-            $scope.scouponid = '';
-            $scope.sfulname = '';
+        Thesocket.on('show_coupon_for_shop', function (shop_id, coupon_id, _id) {
+            // $scope.scouponid = '';
+            // $scope.sfulname = '';
             // $scope.user_img = user_img;
             // $scope.user_name = user_name;
             $scope.shopId = shop_id;
             $scope._id = _id;
             // $scope.list_coupon = [];
             getShopbyId(shop_id);
+
+            $timeout(function () {
+                getShopbyId($scope.auth[0].role[0].shop);
+                
+                $scope.list_coupon.forEach(function (element){
+                    if (element.coupon._id === coupon_id) {
+                        if (element.reviewedby === null) {
+                            DataCenter.TimeoutCoupon(shop_id, coupon_id).then(function (response) {
+                                if (response.data.error_code === 0) {
+                                    getShopbyId($scope.auth[0].role[0].shop);
+                                }
+                            })
+                        }
+                    }
+                });
+
+            }, 60000);
         });
 
         //keo de cap nhat
@@ -99,32 +116,78 @@ app
 
         //one connect to coupon
         Thesocket.on('disableconnect', function (coupon_id, fulname, avatar) {
-            $scope.sfulname = fulname;
-            $scope.scouponid = coupon_id;
-            $scope.savatar = avatar;
+            // $scope.sfulname = fulname;
+            // $scope.scouponid = coupon_id;
+            // $scope.savatar = avatar;
+
+            $timeout(function(){
+                getShopbyId($scope.auth[0].role[0].shop);
+            }, 300)
+            
         })
 
-        $timeout(function () {
-            if ($scope.scouponid === '') {
-                DataCenter.TimeoutCoupon($scope.coupon_detail.shop_id, $scope.coupon_detail._id).then(function (response) {
-                    if (response.data.error_code === 0) {
-                        getShopbyId($scope.auth[0].role[0].shop);
-                    }
-                })
-            }
-        }, 60000);
+        $scope.changef = function (shop_id, user_id, id, coupon_id, avatar, name, reviewedby, coupon) {
+            $scope.user_id = user_id;
+            $scope.couponId = id;
+            $scope.the_id = coupon_id;
 
-        $scope.changef = function (user_id, id, coupon_id, avatar, name) {
-            if ($scope.scouponid !== '') {
-                $scope.one.show();
+            if (reviewedby !== null) {
+                if ($scope.auth[0].user_id !== reviewedby[0].userId) {
+                    $scope.coupon_detail = coupon;
+                    $scope.one.show();
+                } else {
+                    //accept coupon or cancel coupon
+                    // $scope.comfirm = function (user_id, id, coupon_id, avatar, name, shop_img) {
+                    Thesocket.emit('oneconnect', shop_id, coupon_id, $scope.auth[0].user_id, $scope.auth[0].info[0].fulname, $scope.auth[0].user_img);
+                    var confirmPopup = $ionicPopup.confirm({
+                        title: 'Áp dụng cho khách hàng',
+                        cssClass: '',
+                        template: '<div class="row" style="margin-top: 45px;"><img class="coupon-img-avatar" src="' + avatar + '"></div> <a class= "item" style="text-align:center;">  <span class="coupon-name">' + name + '</span>  </a> ',
+                        buttons: [{
+                            text: 'Hủy',
+                            type: 'button-positive',
+                            onTap: function (e) {
+                                return false;
+                            }
+                        }, {
+                            text: 'Ok',
+                            type: 'button-positive',
+                            onTap: function (e) {
+                                return true;
+                            }
+                        }]
+                    });
+
+                    confirmPopup.then(function (res) {
+                        if (res) {
+                            //send success
+                            Thesocket.emit('send_error', $scope._message, $scope.user_id, 0);
+                            $ionicLoading.show({
+                                template: 'Coupon đã được chấp nhận <br/> <i class="ion ion-ios-checkmark coupon-done"></i>',
+                                duration: 1500
+                            })
+
+                            DataCenter.AcceptCoupon($scope.shop[0].shopId, $scope.couponId, $scope.the_id).then(function (response) {
+                                if (response.data.error_code === 0) {
+                                    Thesocket.emit('user_use_coupon', $scope.shop[0].shopId);
+                                    getShopbyId($scope.auth[0].role[0].shop);
+
+                                    DataCenter.UpdateCouponfeed($scope._id, $scope.the_id, null, "").then(function (response) {
+                                    })
+                                    DataCenter.UpdateRating($scope.shopId, $scope.the_id, null, "").then(function (res) {
+                                    })
+                                }
+                            });
+                        } else {
+                            $scope.modal.show();
+                        }
+                    });
+                    // }
+                }
             } else {
                 //accept coupon or cancel coupon
-
                 // $scope.comfirm = function (user_id, id, coupon_id, avatar, name, shop_img) {
-                Thesocket.emit('oneconnect', coupon_id, $scope.auth[0].info[0].fulname, $scope.auth[0].user_img);
-                $scope.user_id = user_id;
-                $scope.couponId = id;
-                $scope.the_id = coupon_id;
+                Thesocket.emit('oneconnect', shop_id, coupon_id, $scope.auth[0].user_id, $scope.auth[0].info[0].fulname, $scope.auth[0].user_img);
                 var confirmPopup = $ionicPopup.confirm({
                     title: 'Áp dụng cho khách hàng',
                     cssClass: '',
@@ -155,7 +218,7 @@ app
 
                         DataCenter.AcceptCoupon($scope.shop[0].shopId, $scope.couponId, $scope.the_id).then(function (response) {
                             if (response.data.error_code === 0) {
-                                // Thesocket.emit('user_use_coupon', $scope.shop[0].shopId);
+                                Thesocket.emit('user_use_coupon', $scope.shop[0].shopId);
                                 getShopbyId($scope.auth[0].role[0].shop);
 
                                 DataCenter.UpdateCouponfeed($scope._id, $scope.the_id, null, "").then(function (response) {
@@ -204,7 +267,7 @@ app
 
             DataCenter.CancelCoupon($scope.shop[0].shopId, $scope.couponId).then(function (response) {
                 if (response.data.error_code === 0) {
-                    // Thesocket.emit('user_use_coupon', $scope.shop[0].shopId);
+                    Thesocket.emit('user_use_coupon', $scope.shop[0].shopId);
                     getShopbyId($scope.auth[0].role[0].shop);
                 }
             })

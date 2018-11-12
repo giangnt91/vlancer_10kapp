@@ -4,11 +4,11 @@
     </ion-header-bar>
     <ion-content>
         <div class="row">
-            <img class="coupon-feedback-img-avatar" src="{{savatar}}">
+            <img class="coupon-feedback-img-avatar" src="{{coupon_detail.reviewedby[0].img}}">
         </div>
         <div class="row">
             <div class="col">
-              <center><p>Coupon đang duyệt bởi <span style="color: #EC407A">{{sfulname}}</span></p></center>  
+              <center><p>Coupon đang duyệt bởi <span style="color: #EC407A">{{coupon_detail.reviewedby[0].userName}}</span></p></center>  
             </div>
         </div>
 
