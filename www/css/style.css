@@ -316,8 +316,17 @@ p {
     text-align: center;
 }
 
-.lgbuton {
-    background: #FF0000 !important;
+.lgbutonfb {
+    background: #3A63BE !important;
+    box-shadow: none !important;
+    color: #fff !important;
+    border-radius: 5px !important;
+    font-size: 16px !important;
+    font-weight: 400;
+}
+
+.lgbutongg {
+    background: #D64A37 !important;
     box-shadow: none !important;
     color: #fff !important;
     border-radius: 5px !important;

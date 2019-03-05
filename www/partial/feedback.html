@@ -2,7 +2,7 @@
     <ion-header-bar class="bar bar-assertive" align-title="center">
         <h1 class="title">Feedback Coupon</h1>
     </ion-header-bar>
-    <ion-content>
+    <ion-content has-bouncing="true">
         <div class="row">
             <img class="coupon-feedback-img-avatar" src="{{coupon_detail.shop_avatar}}">
         </div>
@@ -49,7 +49,7 @@
 
         <div class="list" style="margin-bottom: 50px">
             <p>
-                <textarea id="message" class="input coupon-text-feedback" rows="7" cols="65" ng-model="data"></textarea>
+                <textarea id="theMessage" class="input coupon-text-feedback" rows="7" cols="65"></textarea>
             </p>
         </div>
 

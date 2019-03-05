@@ -115,7 +115,7 @@ app
                                         $timeout(function(){
                                             $ionicLoading.hide();
                                         }, 3000);
-                                        Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.auth[0]._id);
+                                        Thesocket.emit('user_use_coupon', $scope.coupon_detail.shop_id, $scope.coupon_detail._id, $scope.auth[0]._id);
                                     }
                                 })
                             }
@@ -187,8 +187,9 @@ app
 
         //save feedback
         $scope.feedback = function () {
-            var _message = $("#message").val();
-            if ($scope.rating === undefined || $scope.rating === null || _message === "" || _message === null || _message === undefined) {
+            var _message = $("#theMessage").val();
+
+            if ($scope.rating === undefined || $scope.rating === null || $scope._message === "" || _message === null || _message === undefined) {
                 $ionicLoading.show({
                     template: 'Bạn vui lòng chấm điểm và nhập nội dung đánh giá ! <br/> <i class="ion ion-sad coupon-false"></i>',
                     duration: 3000
@@ -197,16 +198,21 @@ app
                 DataCenter.UpdateAfterUser($scope.auth[0]._id, $scope.coupon_detail._id, $scope.rating, _message).then(function (response) {
                     if (response.data.error_code === 0) {
                         DataCenter.UpdateRating($scope.coupon_detail.shop_id, $scope.coupon_detail._id, $scope.rating, _message).then(function (res) {
-                            if (res.data.error_code === 0) {
+						   if (res.data.error_code === 0) {
                                 $ionicLoading.show({
                                     template: 'Cám ơn bạn đã đánh giá và chấm điểm cho dịch vụ của chúng tôi ! <br/> <i class="ion ion-happy coupon-done"></i>',
                                     duration: 3000
                                 })
-
-                                $("#message").val(null);
-
+								
                                 $timeout(function () {
                                     $scope.modal.hide();
+									
+									// clear data in modal
+									$scope.modal.remove()
+									.then(function() {
+									  $scope.modal = null;
+									});
+									
                                     $state.transitionTo('app.home', null, { reload: false });
                                 }, 3000)
                             }

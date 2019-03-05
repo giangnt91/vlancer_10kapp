@@ -1,5 +1,5 @@
 <ion-view cache-view="false" view-title="{{coupon_detail.shop_name}}">
-    <ion-content style="margin-bottom: 40px" overflow-scroll="true" class="has-header">
+    <ion-content style="margin-bottom: 40px" has-bouncing="true" class="has-header">
         <div class="list" ng-show="!loading">
 
             <div class="row" style="padding: 0px; height: 220px;">
@@ -8,14 +8,14 @@
                 </div>
             </div>
 
-            <div class="row" style="margin-bottom: 15px">
+            <div class="row">
                 <img class="coupon-img-avatar item" src="{{coupon_detail.shop_avatar}}">
             </div>
 
             <a class="item" style="text-align:center;">
                 <span class="coupon-price">{{coupon_detail.value}} VNĐ</span>
             </a>
-            <p class="item" ng-bind-html="coupon_detail.coupon_info | unsafe" style="padding: 30px; padding-bottom: 0; padding-top: 10px; font-size: 14px"></p>
+            <p ng-bind-html="coupon_detail.coupon_info | unsafe" style="padding: 30px; padding-bottom: 0; padding-top: 10px; font-size: 14px"></p>
             <!-- <a class="item item-icon-left">
                 <i class="icon ion-android-arrow-dropright"></i>
                 <p ng-bind-html="coupon_detail.coupon_info | unsafe"></p>
@@ -28,8 +28,7 @@
 
             <a class="item item-icon-left">
                 <i class="icon ion-android-arrow-dropright"></i>
-                Hạn sử dụng: {{coupon_detail.time_expire}} <span ng-if="coupon_detail.time_expire !== '1'">Tháng</span>
-                <span ng-if="coupon_detail.time_expire === '1'">Năm</span>
+                Hạn sử dụng: {{coupon_detail.limit_time}}
             </a>
 
             <a class="item item-icon-left">
