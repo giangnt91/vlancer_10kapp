@@ -1,6 +1,7 @@
-﻿<ion-view cache-view="false" view-title="My Coupon">
+﻿<ion-view cache-view="false" view-title="Coupon của tôi">
     <ion-content has-bouncing="true">
-        <ion-refresher pulling-text="Kéo thả để cập nhật" pulling-icon="icon ion-ios-arrow-down" on-refresh="doRefresh()" spinner="lines">
+        <ion-refresher pulling-text="Kéo thả để cập nhật" pulling-icon="icon ion-ios-arrow-down"
+            on-refresh="doRefresh()" spinner="lines">
         </ion-refresher>
 
         <!-- loading -->
@@ -22,11 +23,11 @@
         </div> -->
         <!-- end loading -->
         <div class="list" ng-show="!loading">
-            <a class="item item-thumbnail-left item-icon-right coupon" nav-transition="ios" ng-show="list_coupon.length > 0" ng-repeat="content in list_coupon" href="#/app/coupon/{{content._id}}"
+            <a class="item item-thumbnail-left item-icon-right coupon" nav-transition="ios"
+                ng-show="list_coupon.length > 0" ng-repeat="content in list_coupon" href="#/app/coupon/{{content._id}}"
                 style="border-bottom: 1px solid rgba(236, 64, 122, 0.2) !important; min-height: 100px">
                 <img src="{{content.shop_avatar}}">
                 <h2 class="name_shop">{{content.shop_name}}</h2>
-                <!-- <p>Hạn sử dụng: {{content.limit_time}} <span ng-if="content.time_expire !== '1'">Tháng</span> <span ng-if="content.time_expire === '1'">Năm</span></p> -->
                 <p>Hạn sử dụng: {{content.limit_time}}</p>
                 <span class="coupona">
                     {{content.value}} VNĐ

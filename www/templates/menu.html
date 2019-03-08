@@ -11,7 +11,8 @@
     </ion-side-menu-content>
     <ion-side-menu side="left">
         <ion-header-bar class="expanded all-center">
-            <img src="{{auth_menu[0].user_img}}" class="avatar motion spin fade" style="left:37%; border-radius:10px; width:70px; height:70px; line-height:1;">
+            <img src="{{auth_menu[0].user_img}}" class="avatar motion spin fade"
+                style="left:37%; border-radius:10px; width:70px; height:70px; line-height:1;">
             <div class="menu-bottom" style="font-weight:400">
                 {{auth_menu[0].info[0].fulname}}
             </div>
@@ -19,36 +20,47 @@
         <ion-content class="stable-bg has-expanded-header bg">
             <div class="list">
 
-                <a menu-close class="item item-icon-left" nav-transition="android" href="#/app/home" ng-if="!_menu_shop">
+                <a menu-close class="item item-icon-left" nav-transition="android" href="#/app/home"
+                    ng-if="!_menu_shop">
                     <i class="icon ion-ios-home"></i>
-                    My Coupon
+                    Coupon của tôi
                 </a>
 
-                <a menu-close class="item item-icon-left" nav-transition="android" href="#/app/listfeedback" ng-if="!_menu_shop">
+                <a menu-close class="item item-icon-left" nav-transition="android" href="#/app/gifts"
+                    ng-if="!_menu_shop">
+                    <i class="icon ion-ios-star"></i>
+                    Quà tặng
+
+                <a menu-close class="item item-icon-left" nav-transition="android" href="#/app/listfeedback"
+                    ng-if="!_menu_shop">
                     <i class="icon ion-ios-paper"></i>
-                    Feedback
+                    Phản hồi
                     <!-- <span class="badge badge-assertive" ng-if="list_fb.length > 0">{{list_fb.length}}</span> -->
                 </a>
 
                 <a menu-close class="item item-icon-left" nav-transition="android" href="#/app/shop" ng-if="_menu_shop">
                     <i class="icon ion-ios-home"></i>
-                    Home
+                    Quản lý Coupon
+                </a>
+
+                <a menu-close class="item item-icon-left" nav-transition="android" href="#/app/shopgifts" ng-if="_menu_shop">
+                    <i class="icon ion-ios-star"></i>
+                    Quản lý quà tặng
                 </a>
 
                 <a menu-close class="item item-icon-left" nav-transition="android" href="#/app/account">
                     <i class="icon ion-ios-person"></i>
-                    Thông Tin Tài Khoản
+                    Thông tin tài khoản
                 </a>
 
-                <!-- <a menu-close class="item item-icon-left" ng-click="go_share()">
-                    <i class="icon ion-android-share-alt"></i>
-                    Chia sẻ ( +100đ )
-                    href="#/app/login"
-                </a> -->
+                <a menu-close class="item item-icon-left" nav-transition="android" href="#/app/account">
+                    <i class="icon ion-ios-information"></i>
+                    Hướng dẫn sử dụng
+                </a>
 
                 <a menu-close class="item item-icon-left" nav-transition="android" ng-click="logout()">
                     <i class="icon ion-android-exit"></i>
-                    Đăng Xuất
+                    Đăng xuất
                 </a>
 
             </div>

@@ -1,6 +1,6 @@
 var app = angular.module('10kCoupon', ['ionic', 'ionic-material', 'ngCordova', 'MobileService', 'btford.socket-io']);
 
-app.config(function ($stateProvider, $urlRouterProvider) {    
+app.config(function ($stateProvider, $urlRouterProvider) {
     $stateProvider
 
         .state('app', {
@@ -23,7 +23,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
             url: '/shop',
             views: {
                 'menuContent': {
-                    templateUrl: 'partial/forshop.html',
+                    templateUrl: 'partial/shopcoupon.html',
                     controller: 'ShopCtrl'
                 }
             }
@@ -35,7 +35,7 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 'menuContent': {
                     templateUrl: 'partial/account.html',
                     controller: 'AccountCtrl',
-                    cache:false
+                    cache: false
                 }
             }
         })
@@ -46,6 +46,36 @@ app.config(function ($stateProvider, $urlRouterProvider) {
                 'menuContent': {
                     templateUrl: 'partial/coupon.html',
                     controller: 'CouponCtrl'
+                }
+            }
+        })
+
+        .state('app.shopgifts', {
+            url: '/shopgifts',
+            views: {
+                'menuContent': {
+                    templateUrl: 'partial/shopgift.html',
+                    controller: 'ShopGiftsCtrl'
+                }
+            }
+        })
+
+        .state('app.gifts', {
+            url: '/gifts',
+            views: {
+                'menuContent': {
+                    templateUrl: 'partial/gifts.html',
+                    controller: 'GiftsCtrl'
+                }
+            }
+        })
+
+        .state('app.gift', {
+            url: '/gift?:id',
+            views: {
+                'menuContent': {
+                    templateUrl: 'partial/gift.html',
+                    controller: 'GiftCtrl'
                 }
             }
         })

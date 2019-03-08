@@ -1,0 +1,19 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-gift" align-title="center">
+        <h1 class="title" style="color: #fff">Quà Đang Được Duyệt Bởi</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="row">
+            <img class="coupon-feedback-img-avatar" src="{{reviewer.reviewimage}}">
+        </div>
+        <div class="row">
+            <div class="col">
+              <center><h4 style="color: #53B54B">{{reviewer.reviewname}}</h4></center>  
+            </div>
+        </div>
+
+    </ion-content>
+    <div class="bar bar-footer" style="background: #53B54B; color: white" ng-click="closeReviewer()">
+        <div class="title">Ok</div>
+    </div>
+</ion-modal-view>

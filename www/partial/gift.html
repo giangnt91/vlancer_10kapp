@@ -1,40 +1,48 @@
-<ion-view cache-view="false" view-title="{{coupon_detail.shop_name}}">
-    <ion-content style="margin-bottom: 40px" has-bouncing="true" class="has-header">
+<ion-view cache-view="false" view-title="{{giftDetail.giftName}}">
+    <ion-nav-bar class="bar-gift">
+        <ion-nav-back-button class="no-text">
+        </ion-nav-back-button>
+        <ion-nav-buttons side="left">
+          <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+        </ion-nav-buttons>
+      </ion-nav-bar>
+    <ion-content has-bouncing="true" class="has-header">
         <div class="list" ng-show="!loading">
 
             <div class="row" style="padding: 0px; height: 220px;">
-                <div class="col coupon-img item" style="background: url({{coupon_detail.shop_cover}}) no-repeat;
+                <div class="col coupon-img item" style="background: url({{giftDetail.giftImages[1]}}) no-repeat;
                 background-size: cover;">
                 </div>
             </div>
 
             <div class="row">
-                <img class="coupon-img-avatar item" src="{{coupon_detail.shop_avatar}}">
+                <img class="coupon-img-avatar item" src="{{giftDetail.giftImages[0]}}">
             </div>
 
             <a class="item" style="text-align:center;">
-                <span class="coupon-price">{{coupon_detail.value}} VNĐ</span>
-            </a>
-            <p ng-bind-html="coupon_detail.coupon_info | unsafe" style="padding: 30px; padding-bottom: 0; padding-top: 10px; font-size: 14px"></p>
-
-            <a class="item item-icon-left">
-                <i class="icon ion-android-arrow-dropright"></i>
-                Ngày phát hành: {{coupon_detail.release_day}}
+                <span class="coupon-price">{{giftDetail.giftPrice}} VNĐ</span>
             </a>
 
             <a class="item item-icon-left">
                 <i class="icon ion-android-arrow-dropright"></i>
-                Hạn sử dụng: {{coupon_detail.limit_time}}
+               Cửa hàng: {{giftDetail.giftShop[0].name}}
+            </a>
+
+            <p ng-bind-html="giftDetail.giftInfo | unsafe" style="padding: 30px; padding-bottom: 0; padding-top: 0px; font-size: 14px; margin-bottom: 0px"></p>
+
+            <a class="item item-icon-left">
+                <i class="icon ion-android-arrow-dropright"></i>
+                Hạn sử dụng: {{giftDetail.giftExpiredDay}}
             </a>
 
             <a class="item item-icon-left">
                 <i class="icon ion-android-arrow-dropright"></i>
-                Yêu cầu Feedback: {{coupon_detail.rfeedback[0].name}}
+                Địa chỉ nhận quà: {{giftDetail.giftAddress}}
             </a>
 
         </div>
     </ion-content>
-    <div class="bar bar-footer" style="background: #EC407A; color: white" ng-click="use()">
+    <div class="bar bar-footer" style="background: #53B54B; color: white" ng-click="useGift()">
         <div class="title">SỬ DỤNG</div>
     </div>
 </ion-view>

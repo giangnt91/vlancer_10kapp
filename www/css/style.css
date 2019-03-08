@@ -5,6 +5,14 @@
 .item p{
     color: #C1C1C1;
 }
+
+.bar-gift{
+    border-color: #53B54B;
+    background-color: #53B54B;
+    background-image: linear-gradient(0deg, #53B54B, #53B54B 50%, transparent 50%);
+    color: #fff;
+}
+
 /* Empty. Add your own CSS if you like */
 .jst-hours{
     display: none;
@@ -458,7 +466,7 @@ p {
     border-radius: 5px;
     position: relative;
     margin: 0 auto;
-    margin-top: 10px;
+    margin-top: 25px;
     margin-bottom: 15px;
     width: 120px;
     height: 120px;

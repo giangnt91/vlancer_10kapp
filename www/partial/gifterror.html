@@ -1,0 +1,23 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-gift" align-title="center">
+        <h1 class="title" style="color: #fff">Cửa Hàng Từ Chối Coupon</h1>
+    </ion-header-bar>
+    <ion-content>
+        <div class="row">
+            <img class="coupon-feedback-img-avatar" src="{{shopImg}}">
+        </div>
+        <div class="row">
+            <div class="col">
+              <p class="coupon-error">Phần quà của bạn không được cửa hàng {{giftDetail.giftShop[0].name}} chấp nhận, dưới đây là lý do cửa hàng đưa ra để không duyệt Quà.</p>
+            </div>
+        </div>
+
+        <div class="list card" style="margin-bottom: 50px">
+            <p class="coupon-text-feedback">{{sms}}</p>
+        </div>
+
+    </ion-content>
+    <div class="bar bar-footer" style="background: #53B54B; color: white" ng-click="closeErrorGift()">
+        <div class="title">Ok</div>
+    </div>
+</ion-modal-view>

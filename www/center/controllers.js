@@ -4,8 +4,8 @@ app
     .controller('AppCtrl', function ($scope, $rootScope, $ionicLoading, $ionicModal, $state, $timeout, $ionicPopup, $ionicActionSheet, $ionicHistory, $ionicSideMenuDelegate, ionicMaterialMotion, ionicMaterialInk, DataCenter, Thesocket) {
         $scope.auth = JSON.parse(localStorage.getItem('auth'));
         $scope.list_fb = JSON.parse(localStorage.getItem('list_fb'))
-        document.addEventListener("deviceready", onDeviceReady, false);	
-		
+        document.addEventListener("deviceready", onDeviceReady, false);
+
         // load data when user get new coupon from web
         Thesocket.on('user_mobile', function (uid) {
             if (uid === $scope.auth[0].user_id) {
@@ -55,6 +55,8 @@ app
 
         if ($scope.auth) {
             $scope.list_coupon = $scope.auth[0].total_list_coupon;
+            // register soketid when login
+            Thesocket.emit('register_socket_id', $scope.auth[0]._id);
         }
 
         //error
@@ -148,13 +150,13 @@ app
 
         $scope.logout = function () {
             $state.transitionTo('app.login', null, { reload: false });
-			
-			if($scope.auth[0].info[0].provider === 'facebook'){
-				facebookConnectPlugin.logout();
-			}else if($scope.auth[0].info[0].provider === 'google'){
-				window.plugins.googleplus.logout();
-			}
-            
+
+            if ($scope.auth[0].info[0].provider === 'facebook') {
+                facebookConnectPlugin.logout();
+            } else if ($scope.auth[0].info[0].provider === 'google') {
+                window.plugins.googleplus.logout();
+            }
+
             $ionicLoading.show({
                 template: 'Đang xử lý dữ liệu <br/><br/> <ion-spinner icon="lines" class="spinner-energized"></ion-spinner>',
                 duration: 700
