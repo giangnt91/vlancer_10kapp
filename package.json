@@ -13,6 +13,7 @@
     "cordova-plugin-device": "^2.0.2",
     "cordova-plugin-facebook4": "^2.1.0",
     "cordova-plugin-googleplus": "git+https://github.com/EddyVerbruggen/cordova-plugin-googleplus.git",
+    "cordova-plugin-inappbrowser": "^3.0.0",
     "cordova-plugin-ionic-keyboard": "^2.0.5",
     "cordova-plugin-ionic-webview": "^1.1.19",
     "cordova-plugin-splashscreen": "^5.0.2",
@@ -38,7 +39,8 @@
       "cordova-plugin-googleplus": {
         "REVERSED_CLIENT_ID": "com.googleusercontent.apps.1026230976029-40gllqvqt0q8g7vu0mbv9iln74s8ec3l",
         "PLAY_SERVICES_VERSION": "11.8.0"
-      }
+      },
+      "cordova-plugin-inappbrowser": {}
     },
     "platforms": [
       "android"

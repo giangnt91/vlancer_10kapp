@@ -164,6 +164,11 @@ app
             localStorage.clear();
         }
 
+        // hướng dẫn sử dụng
+        $scope.openTutorial = () => {
+            window.open('https://coupon10k.com/huong-dan-su-dung');
+        }
+
         //keo de cap nhat
         $scope.doRefresh = function () {
             $timeout(function () {

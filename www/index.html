@@ -13,7 +13,7 @@
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
-	<script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://apis.google.com/js/api.js"></script>
     <script src="lib/jquery.min.js"></script>
     <script src="lib/jquery.simple.timer.js"></script>
 
@@ -46,6 +46,11 @@
         window.addEventListener('native.keyboardshow', function () {
             document.body.classList.add('keyboard-open');
         });
+
+        document.addEventListener("deviceready", onDeviceReady, false);
+        function onDeviceReady() {
+            window.open = cordova.InAppBrowser.open;
+        }
     </script>
 </head>
 

@@ -351,6 +351,9 @@ app
         $scope.sms = jQuery('#giftmessage').val();
       }
 
+      // gọi tới shop để làm mới danh sách
+      Thesocket.emit('user_use_gift');
+
       //send error
       Thesocket.emit('notif_gift', $scope.sms, $scope.shopDetail.shop_info[0].shop_avatar, $scope.giftDetail.auth.id, 1);
 
